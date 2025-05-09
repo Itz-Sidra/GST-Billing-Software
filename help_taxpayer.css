@@ -1,0 +1,129 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+/* Header */
+header {
+    display: flex;
+    align-items: center;
+    background-color: #004085;
+    color: white;
+    padding: 15px;
+}
+
+.logo img {
+    height: 50px;
+    margin-right: 15px;
+}
+
+.heading h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.heading p {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* Navigation */
+nav {
+    background-color: #0056b3;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 8px 15px;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: #003366;
+    border-radius: 5px;
+}
+
+/* Help Content */
+.help-content {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.help-content h2, .help-content h3 {
+    text-align: center;
+    color: #004085;
+}
+
+.help-content ul {
+    padding-left: 20px;
+}
+
+.help-content ul li {
+    margin-bottom: 10px;
+}
+
+/* Collapsible FAQ Section */
+.faq-section {
+    margin-top: 20px;
+}
+
+.faq-item {
+    margin-bottom: 10px;
+}
+
+.faq-title {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    text-align: left;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.faq-title:hover {
+    background-color: #0056b3;
+}
+
+.faq-detail {
+    display: none;
+    padding: 10px;
+    background-color: #e9ecef;
+    border-left: 4px solid #007bff;
+    margin-top: 5px;
+    border-radius: 5px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #004085;
+    color: white;
+    margin-top: 20px;
+}

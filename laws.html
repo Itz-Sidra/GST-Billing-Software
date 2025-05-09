@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GST Law - Government of India</title>
+    <link rel="stylesheet" href="laws.css">
+    <script defer src="laws.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="government of india.png" alt="Government Logo">
+        </div>
+        <div class="heading">
+            <h1>GST Law</h1>
+            <p>Government of India, States and Union Territories</p>
+        </div>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="index1.html">Home</a></li>
+            <li><a href="service.html">Services</a></li>
+            <li><a href="laws.html">GST Law</a></li>
+            <li><a href="downloads.html">Downloads</a></li>
+            <li><a href="search_taxpayer.html">Search Taxpayer</a></li>
+            <li><a href="help_taxpayer.html">Help and Taxpayer Facilities</a></li>
+            <li><a href="e_invoice.html">e-Invoice</a></li>
+            <li><a href="news_updates.html">News and Updates</a></li>
+        </ul>
+    </nav>
+    
+    <section class="law-content">
+        <h2>Understanding GST Law</h2>
+        <p>Goods and Services Tax (GST) is a comprehensive indirect tax levied on the supply of goods and services across India. It replaced multiple indirect taxes and brought uniformity to the tax system.</p>
+        
+        <h3>Key Features of GST</h3>
+        <ul>
+            <li>Single tax system covering CGST, SGST, and IGST.</li>
+            <li>Elimination of cascading tax effects.</li>
+            <li>Improved compliance through digital records.</li>
+            <li>Input tax credit mechanism.</li>
+        </ul>
+
+        <h3>GST Acts and Rules</h3>
+        <div class="law-list">
+            <div class="law-item">
+                <button class="law-title">GST Act 2017</button>
+                <p class="law-detail">The Central Goods and Services Tax (CGST) Act, 2017 governs the levy of GST in India.</p>
+            </div>
+            <div class="law-item">
+                <button class="law-title">IGST Act 2017</button>
+                <p class="law-detail">The Integrated Goods and Services Tax (IGST) Act regulates inter-state transactions.</p>
+            </div>
+            <div class="law-item">
+                <button class="law-title">SGST Act 2017</button>
+                <p class="law-detail">Each state has its own SGST Act to manage intra-state transactions.</p>
+            </div>
+            <div class="law-item">
+                <button class="law-title">GST Compensation Act</button>
+                <p class="law-detail">Ensures states receive compensation for revenue loss due to GST implementation.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Government of India. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.law-title').forEach(button => {
+            button.addEventListener('click', () => {
+                const detail = button.nextElementSibling;
+                detail.style.display = (detail.style.display === "block") ? "none" : "block";
+            });
+        });
+    </script>
+</body>
+</html>

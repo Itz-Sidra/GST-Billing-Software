@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Taxpayer - Government of India</title>
+    <link rel="stylesheet" href="search_taxpayer.css">
+    <script defer src="search_taxpayer.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="government of india.png" alt="Government Logo">
+        </div>
+        <div class="heading">
+            <h1>Search Taxpayer</h1>
+            <p>Government of India, GST Portal</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index1.html">Home</a></li>
+            <li><a href="service.html">Services</a></li>
+            <li><a href="laws.html">GST Law</a></li>
+            <li><a href="search_taxpayer.html">Search Taxpayer</a></li>
+            <li><a href="downloads.html">Downloads</a></li>
+            <li><a href="help_taxpayer.html">Help and Taxpayer Facilities</a></li>
+            <li><a href="e_invoice.html">E-Invoice</a></li>
+            <li><a href="news_updates.html">News and Updates</a></li>
+        </ul>
+    </nav>
+
+    <section class="search-section">
+        <h2>Enter GSTIN to Search</h2>
+        <input type="text" id="gstin" placeholder="Enter GSTIN (15-digit)">
+        <button id="search-btn">Search</button>
+        <p id="error-msg" class="error"></p>
+        
+        <div id="result" class="result-container">
+            <h3>Taxpayer Details</h3>
+            <p><strong>Name:</strong> <span id="taxpayer-name"></span></p>
+            <p><strong>GSTIN:</strong> <span id="taxpayer-gstin"></span></p>
+            <p><strong>State:</strong> <span id="taxpayer-state"></span></p>
+            <p><strong>Status:</strong> <span id="taxpayer-status"></span></p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Government of India. All rights reserved.</p>
+    </footer>
+</body>
+</html>

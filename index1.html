@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GST Billing Software</title>
+    <link rel="stylesheet" href="a.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="government of india.png" alt="Government Logo">
+        </div>
+        <div class="heading">
+            <h1>Goods and Services Tax</h1>
+            <p>Government of India, States and Union Territories</p>
+        </div>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="index1.html">Home</a></li>
+            <li><a href="service.html">Services</a></li>
+            <li><a href="laws.html">GST Law</a></li>
+            <li><a href="downloads.html">Downloads</a></li>
+            <li><a href="search_taxpayer.html">Search Taxpayer</a></li>
+            <li><a href="help_taxpayer.html">Help and Taxpayer Facilities</a></li>
+            <li><a href="e_invoice.html">e-Invoice</a></li>
+            <li><a href="news_updates.html">News and Updates</a></li>
+        </ul>
+    </nav>
+    
+    <section class="hero">
+        <img src="gst_image1.jpg" alt="GST Overview" class="large-image">
+    </section>
+
+    <section class="home-content">
+        <div class="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <button class="faq-question">What is GST?</button>
+                <p class="faq-answer">GST is a single tax on the supply of goods and services, right from the manufacturer to the consumer.</p>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">How can I register for GST?</button>
+                <p class="faq-answer">You can register for GST through the government portal by providing the necessary details.</p>
+            </div>
+        </div>
+        
+        <div class="news-updates">
+            <h2>News and Updates</h2>
+            <ul id="news-list">
+                <li>New GST filing rules effective from March 2025.</li>
+                <li>Government announces tax relief for small businesses.</li>
+            </ul>
+        </div>
+    </section>
+    
+    <footer>
+        <p>&copy; 2025 Government of India. All rights reserved.</p>
+    </footer>
+    <script>
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const answer = button.nextElementSibling;
+                answer.style.display = (answer.style.display === "block") ? "none" : "block";
+            });
+        });
+    </script>
+</body>
+</html>

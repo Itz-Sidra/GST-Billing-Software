@@ -1,0 +1,132 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+/* Header */
+header {
+    display: flex;
+    align-items: center;
+    background-color: #004085;
+    color: white;
+    padding: 15px;
+}
+
+.logo img {
+    height: 50px;
+    margin-right: 15px;
+}
+
+.heading h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.heading p {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* Navigation */
+nav {
+    background-color: #0056b3;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 8px 15px;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: #003366;
+    border-radius: 5px;
+}
+
+/* Search Section */
+.search-section {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.search-section h2 {
+    color: #004085;
+}
+
+.search-section input {
+    width: 80%;
+    padding: 10px;
+    font-size: 16px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-section button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.search-section button:hover {
+    background-color: #0056b3;
+}
+
+/* Error Message */
+.error {
+    color: red;
+    margin-top: 10px;
+    display: none;
+}
+
+/* Result Section */
+.result-container {
+    display: none;
+    text-align: left;
+    margin-top: 20px;
+    padding: 15px;
+    background: #e9ecef;
+    border-radius: 5px;
+}
+
+.result-container h3 {
+    margin-top: 0;
+    color: #004085;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #004085;
+    color: white;
+    margin-top: 20px;
+}
