@@ -485,3 +485,13 @@ body {
                 margin-bottom: 10px;
             }
         }
+
+        @media (max-width: 600px) {
+            .form-group, .form-group-full {
+                padding: 0 5px;
+            }
+            .btn {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
