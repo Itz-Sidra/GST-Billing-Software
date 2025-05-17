@@ -9,10 +9,13 @@ body {
 /* Header */
 header {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     background-color: #004085;
     color: white;
     padding: 15px;
+    justify-content: center;
+    text-align: center;
 }
 
 .logo img {
@@ -30,7 +33,7 @@ header {
     font-size: 14px;
 }
 
-/* Navigation */
+/* Navigation Bar */
 nav {
     background-color: #0056b3;
     padding: 10px 0;
@@ -40,25 +43,26 @@ nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
+    text-align: center;
 }
 
 nav ul li {
-    margin: 0 15px;
+    display: inline-block;
+    margin: 0 10px;
 }
 
 nav ul li a {
     color: white;
     text-decoration: none;
     font-size: 16px;
-    padding: 8px 15px;
+    font-weight: bold;
+    padding: 8px 12px;
     transition: 0.3s;
 }
 
-nav ul li a:hover {
-    background-color: #003366;
-    border-radius: 5px;
+nav ul li a.active {
+    background-color: #004494;
+    border-radius: 4px;
 }
 
 /* Search Section */
@@ -83,6 +87,7 @@ nav ul li a:hover {
     margin-top: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    box-sizing: border-box;
 }
 
 .search-section button {
@@ -129,4 +134,65 @@ footer {
     background-color: #004085;
     color: white;
     margin-top: 20px;
+}
+
+/* ------------------------------
+   Responsive Design: Mobile First
+--------------------------------- */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .logo img {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    nav ul li {
+        display: block;
+        margin: 10px 0;
+    }
+
+    .search-section input {
+        width: 100%;
+    }
+
+    .search-section button {
+        width: 100%;
+    }
+
+    .result-container {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .heading h1 {
+        font-size: 20px;
+    }
+
+    .heading p {
+        font-size: 12px;
+    }
+
+    nav ul li a {
+        font-size: 14px;
+        padding: 6px 10px;
+    }
+
+    .search-section h2 {
+        font-size: 18px;
+    }
+
+    .search-section input,
+    .search-section button {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .result-container h3 {
+        font-size: 16px;
+    }
 }
