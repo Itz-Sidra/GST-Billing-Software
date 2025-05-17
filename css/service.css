@@ -57,6 +57,11 @@ nav ul li a {
     transition: 0.3s;
 }
 
+nav ul li a.active {
+    background-color: #004494;
+    border-radius: 4px;
+}
+
 /* Services Section */
 .services {
     padding: 20px;
@@ -94,6 +99,15 @@ nav ul li a {
     font-size: 14px;
     line-height: 1.6;
     color: #555;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+}
+
+.service-item.active .service-detail {
+    display: block; /* for accessibility fallback */
+    max-height: 500px;
+    padding-top: 10px;
 }
 
 /* Footer */

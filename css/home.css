@@ -58,6 +58,12 @@ nav ul li a {
     padding: 8px 12px;
     transition: 0.3s;
 }
+
+nav ul li a.active {
+    background-color: #004494;
+    border-radius: 4px;
+}
+
 .faq {
     background: #f8f9fa;
     padding: 20px;

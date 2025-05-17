@@ -1,23 +1,35 @@
-
 // Function to toggle the display of service details
 function toggleServiceDetails(serviceItem) {
-    // Get the child element with the class 'service-detail'
     const detail = serviceItem.querySelector('.service-detail');
-    
-    // Toggle the display property
-    if (detail.style.display === 'block') {
-        detail.style.display = 'none';
-    } else {
-        detail.style.display = 'block';
-    }
+    const isExpanded = serviceItem.classList.contains('active');
+
+    detail.style.display = isExpanded ? 'none' : 'block';
+    serviceItem.classList.toggle('active');
+    serviceItem.setAttribute('aria-expanded', !isExpanded);
 }
 
-// Optional: Initialize event listeners if you want to attach them programmatically
+// Initialize event listeners
 document.addEventListener('DOMContentLoaded', () => {
     const serviceItems = document.querySelectorAll('.service-item');
+
     serviceItems.forEach(item => {
-        item.addEventListener('click', function() {
-            toggleServiceDetails(this);
+        // Mouse click support
+        item.addEventListener('click', () => toggleServiceDetails(item));
+
+        // Keyboard accessibility (Enter/Space key)
+        item.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault(); // prevent scrolling on space
+                toggleServiceDetails(item);
+            }
         });
+    });
+
+    // Highlight current page link
+    const currentPath = window.location.pathname.split("/").pop();
+    document.querySelectorAll("nav ul li a").forEach(link => {
+        if (link.getAttribute("href") === currentPath) {
+            link.classList.add("active");
+        }
     });
 });
