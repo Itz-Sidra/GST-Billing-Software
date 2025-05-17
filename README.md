@@ -27,7 +27,7 @@ A responsive web-based portal for managing **Goods and Services Tax (GST)** serv
 │   └── Static pages like home, services, laws, registration etc.
 └── README.md
 
-````
+```
 
 ---
 
@@ -56,7 +56,7 @@ A responsive web-based portal for managing **Goods and Services Tax (GST)** serv
 
 ---
 
-## ample GSTINs for Testing
+## Sample GSTINs for Testing
 
 Use the following GSTINs on the **Search Taxpayer** page:
 
@@ -65,12 +65,12 @@ Use the following GSTINs on the **Search Taxpayer** page:
 | 22AAAAA0000A1Z5   | ABC Pvt Ltd         | Chhattisgarh  | Active     |
 | 07BBBBB1111B2X3   | XYZ Enterprises     | Delhi         | Suspended  |
 | 27CCCCC2222C3Y7   | LMN Traders         | Maharashtra   | Active     |
-| 09DDDDD3333D4Z2   | Ram & Sons         | Uttar Prdesh   | Cancelled     |
+| 09DDDDD3333D4Z2   | Ram & Sons         | Uttar Pradesh   | Cancelled     |
 | 19EEEEE4444E5P9   | Sunrise Retail         | West Bengal   | Active     |
 | 24FFFFF5555F6X1   | Mehta Electronics         | Gujarat   | Suspended     |
 | 32GGGGG6666G7L3   | Kerala Spices Co.         | Kerala   | Active     |
 | 29HHHHH7777H8T5   | Karnataka Textiles         | Karnataka   | Active     |
-| 36IIIII8888I9M8   | Hyderabad Steel Works        | Telengana   | Cancelled     |
+| 36IIIII8888I9M8   | Hyderabad Steel Works        | Telangana   | Cancelled     |
 | 33JJJJJ9999J0U6   | Chennai Builders         | Tamil Nadu   | Active     |
 
 ---
