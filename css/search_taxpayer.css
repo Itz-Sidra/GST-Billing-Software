@@ -47,8 +47,8 @@ nav ul {
 }
 
 nav ul li {
-    display: inline-block;
-    margin: 0 10px;
+    display: inline;
+    margin: 0 15px;
 }
 
 nav ul li a {
