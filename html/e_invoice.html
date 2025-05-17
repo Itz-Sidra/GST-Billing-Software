@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/e_invoice.css">
+    <script defer src="../js/e_invoice.js"></script>
     <title>e-Invoice System</title>
-    <link rel="stylesheet" href="e_invoice.css">
-    <script defer src="e_invoice.js"></script>
 </head>
 <body>
     <header>
         <div class="logo">
-            <img src="government of india.png" alt="Government Logo">
+            <img src="../assests/government of india.png" alt="Government of India Logo">
         </div>
         <div class="heading">
             <h1>e-Invoice System</h1>
@@ -18,52 +18,395 @@
         </div>
     </header>
     
-    <nav>
+    <nav aria-label="Main navigation">
         <ul>
-            <li><a href="index1.html">Home</a></li>
+            <li><a href="home.html">Home</a></li>
             <li><a href="service.html">Services</a></li>
             <li><a href="laws.html">GST Law</a></li>
-            <li><a href="e_invoice.html">e-Invoice</a></li>
             <li><a href="downloads.html">Downloads</a></li>
-            <li><a href="e_invoice.html">E-Invoice</a></li>
-            <li><a href="help_taxpayer.html">Taxpayers Help</a></li>
             <li><a href="search_taxpayer.html">Search Taxpayer</a></li>
-            <li><a href="news_updates.html">News & Updates</a></li>
+            <li><a href="help_taxpayer.html">Help</a></li>
+            <li><a href="e_invoice.html" class="active">e-Invoice</a></li>
+            <li><a href="news_updates.html">Updates</a></li>
+            <li><a href="registration.html">Registration</a></li>
         </ul>
     </nav>
 
-    <section class="invoice-section">
-        <h2>e-Invoice Calculator</h2>
-        <form id="invoice-form">
-            <label for="item-name">Item Name:</label>
-            <input type="text" id="item-name" required>
+    <div class="container">
+        <h1 class="page-title">e-Invoice Generation System</h1>
 
-            <label for="quantity">Quantity:</label>
-            <input type="number" id="quantity" min="1" required>
+        <div class="invoice-section">
+            <div class="invoice-header">
+                <h2>Create New e-Invoice</h2>
+            </div>
 
-            <label for="price">Price per Unit (₹):</label>
-            <input type="number" id="price" min="0" required>
+            <div class="form-container">
+                <form id="invoice-form">
+                    <!-- Invoice Details Section -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="invoice-number">Invoice Number*</label>
+                            <input type="text" id="invoice-number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="invoice-date">Invoice Date*</label>
+                            <input type="date" id="invoice-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="due-date">Due Date</label>
+                            <input type="date" id="due-date">
+                        </div>
+                    </div>
 
-            <label for="gst-rate">GST Rate (%):</label>
-            <select id="gst-rate">
-                <option value="5">5%</option>
-                <option value="12">12%</option>
-                <option value="18" selected>18%</option>
-                <option value="28">28%</option>
-            </select>
+                    <!-- Seller Information -->
+                    <h3>Seller Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="seller-name">Business Name*</label>
+                            <input type="text" id="seller-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="seller-gstin">GSTIN*</label>
+                            <input type="text" id="seller-gstin" required pattern="^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$" placeholder="22AAAAA0000A1Z5">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group-full">
+                            <label for="seller-address">Address*</label>
+                            <textarea id="seller-address" rows="3" required></textarea>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="seller-state">State*</label>
+                            <select id="seller-state" required>
+                                <option value="">Select State</option>
+                                <option value="01">Jammu and Kashmir</option>
+                                <option value="02">Himachal Pradesh</option>
+                                <option value="03">Punjab</option>
+                                <option value="04">Chandigarh</option>
+                                <option value="05">Uttarakhand</option>
+                                <option value="06">Haryana</option>
+                                <option value="07">Delhi</option>
+                                <option value="08">Rajasthan</option>
+                                <option value="09">Uttar Pradesh</option>
+                                <option value="10">Bihar</option>
+                                <option value="11">Sikkim</option>
+                                <option value="12">Arunachal Pradesh</option>
+                                <option value="13">Nagaland</option>
+                                <option value="14">Manipur</option>
+                                <option value="15">Mizoram</option>
+                                <option value="16">Tripura</option>
+                                <option value="17">Meghalaya</option>
+                                <option value="18">Assam</option>
+                                <option value="19">West Bengal</option>
+                                <option value="20">Jharkhand</option>
+                                <option value="21">Odisha</option>
+                                <option value="22">Chhattisgarh</option>
+                                <option value="23">Madhya Pradesh</option>
+                                <option value="24">Gujarat</option>
+                                <option value="25">Daman and Diu</option>
+                                <option value="26">Dadra and Nagar Haveli</option>
+                                <option value="27">Maharashtra</option>
+                                <option value="28">Andhra Pradesh</option>
+                                <option value="29">Karnataka</option>
+                                <option value="30">Goa</option>
+                                <option value="31">Lakshadweep</option>
+                                <option value="32">Kerala</option>
+                                <option value="33">Tamil Nadu</option>
+                                <option value="34">Puducherry</option>
+                                <option value="35">Andaman and Nicobar Islands</option>
+                                <option value="36">Telangana</option>
+                                <option value="37">Ladakh</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="seller-pin">PIN Code*</label>
+                            <input type="text" id="seller-pin" required pattern="^[1-9][0-9]{5}$" maxlength="6">
+                        </div>
+                        <div class="form-group">
+                            <label for="seller-phone">Phone Number</label>
+                            <input type="text" id="seller-phone">
+                        </div>
+                    </div>
 
-            <button type="button" onclick="calculateInvoice()">Calculate</button>
-        </form>
+                    <!-- Buyer Information -->
+                    <h3>Buyer Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="buyer-name">Business Name*</label>
+                            <input type="text" id="buyer-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="buyer-gstin">GSTIN*</label>
+                            <input type="text" id="buyer-gstin" required pattern="^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$" placeholder="22AAAAA0000A1Z5">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group-full">
+                            <label for="buyer-address">Address*</label>
+                            <textarea id="buyer-address" rows="3" required></textarea>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="buyer-state">State*</label>
+                            <select id="buyer-state" required>
+                                <option value="">Select State</option>
+                                <option value="01">Jammu and Kashmir</option>
+                                <option value="02">Himachal Pradesh</option>
+                                <option value="03">Punjab</option>
+                                <option value="04">Chandigarh</option>
+                                <option value="05">Uttarakhand</option>
+                                <option value="06">Haryana</option>
+                                <option value="07">Delhi</option>
+                                <option value="08">Rajasthan</option>
+                                <option value="09">Uttar Pradesh</option>
+                                <option value="10">Bihar</option>
+                                <option value="11">Sikkim</option>
+                                <option value="12">Arunachal Pradesh</option>
+                                <option value="13">Nagaland</option>
+                                <option value="14">Manipur</option>
+                                <option value="15">Mizoram</option>
+                                <option value="16">Tripura</option>
+                                <option value="17">Meghalaya</option>
+                                <option value="18">Assam</option>
+                                <option value="19">West Bengal</option>
+                                <option value="20">Jharkhand</option>
+                                <option value="21">Odisha</option>
+                                <option value="22">Chhattisgarh</option>
+                                <option value="23">Madhya Pradesh</option>
+                                <option value="24">Gujarat</option>
+                                <option value="25">Daman and Diu</option>
+                                <option value="26">Dadra and Nagar Haveli</option>
+                                <option value="27">Maharashtra</option>
+                                <option value="28">Andhra Pradesh</option>
+                                <option value="29">Karnataka</option>
+                                <option value="30">Goa</option>
+                                <option value="31">Lakshadweep</option>
+                                <option value="32">Kerala</option>
+                                <option value="33">Tamil Nadu</option>
+                                <option value="34">Puducherry</option>
+                                <option value="35">Andaman and Nicobar Islands</option>
+                                <option value="36">Telangana</option>
+                                <option value="37">Ladakh</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="buyer-pin">PIN Code*</label>
+                            <input type="text" id="buyer-pin" required pattern="^[1-9][0-9]{5}$" maxlength="6">
+                        </div>
+                        <div class="form-group">
+                            <label for="buyer-phone">Phone Number</label>
+                            <input type="text" id="buyer-phone">
+                        </div>
+                    </div>
 
-        <div id="invoice-result" class="result-box">
-            <h3>Invoice Summary</h3>
-            <p><strong>Item:</strong> <span id="result-item"></span></p>
-            <p><strong>Quantity:</strong> <span id="result-quantity"></span></p>
-            <p><strong>Price per Unit:</strong> ₹<span id="result-price"></span></p>
-            <p><strong>GST Amount:</strong> ₹<span id="result-gst"></span></p>
-            <p><strong>Total Amount:</strong> ₹<span id="result-total"></span></p>
+                    <!-- Item Details -->
+                    <h3>Item Details</h3>
+                    <table class="items-table" id="items-table">
+                        <thead>
+                            <tr>
+                                <th width="5%">S.No</th>
+                                <th width="30%">Item Description</th>
+                                <th width="10%">HSN/SAC</th>
+                                <th width="10%">Quantity</th>
+                                <th width="10%">Unit</th>
+                                <th width="15%">Price (₹)</th>
+                                <th width="10%">GST %</th>
+                                <th width="15%">Amount (₹)</th>
+                                <th width="5%">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="item-rows">
+                            <tr>
+                                <td>1</td>
+                                <td><input type="text" name="item-desc[]" required></td>
+                                <td><input type="text" name="hsn[]" required></td>
+                                <td><input type="number" name="qty[]" min="1" value="1" required onchange="calculateRowTotal(this)"></td>
+                                <td>
+                                    <select name="unit[]">
+                                        <option value="PCS">PCS</option>
+                                        <option value="KG">KG</option>
+                                        <option value="MTR">MTR</option>
+                                        <option value="BOX">BOX</option>
+                                        <option value="LTR">LTR</option>
+                                    </select>
+                                </td>
+                                <td><input type="number" name="price[]" min="0" step="0.01" required onchange="calculateRowTotal(this)"></td>
+                                <td>
+                                    <select name="tax[]" onchange="calculateRowTotal(this)">
+                                        <option value="0">0%</option>
+                                        <option value="5">5%</option>
+                                        <option value="12">12%</option>
+                                        <option value="18" selected>18%</option>
+                                        <option value="28">28%</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" name="amount[]" readonly></td>
+                                <td><button type="button" class="remove-row" onclick="removeRow(this)">X</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" class="add-row" onclick="addRow()">Add Item</button>
+
+                    <!-- Payment Details -->
+                    <h3>Payment Details (Optional)</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="payment-mode">Payment Mode</label>
+                            <select id="payment-mode">
+                                <option value="">Select Payment Mode</option>
+                                <option value="Cash">Cash</option>
+                                <option value="Bank Transfer">Bank Transfer</option>
+                                <option value="Cheque">Cheque</option>
+                                <option value="UPI">UPI</option>
+                                <option value="Credit Card">Credit Card</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="payment-ref">Payment Reference</label>
+                            <input type="text" id="payment-ref">
+                        </div>
+                        <div class="form-group">
+                            <label for="payment-terms">Payment Terms</label>
+                            <input type="text" id="payment-terms" placeholder="e.g., Net 30 days">
+                        </div>
+                    </div>
+
+                    <!-- Additional Notes -->
+                    <div class="form-row">
+                        <div class="form-group-full">
+                            <label for="notes">Notes</label>
+                            <textarea id="notes" rows="3" placeholder="Any additional information for the invoice..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button type="button" class="btn btn-primary" onclick="generateInvoice()">Generate Invoice</button>
+                        <button type="reset" class="btn btn-download">Reset Form</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </section>
+
+        <!-- Invoice Preview -->
+        <div id="invoice-preview">
+            <div class="preview-header">
+                <div class="preview-company-info">
+                    <h3 id="preview-seller-name"></h3>
+                    <p id="preview-seller-address"></p>
+                    <p>GSTIN: <span id="preview-seller-gstin"></span></p>
+                    <p>State: <span id="preview-seller-state-name"></span> (<span id="preview-seller-state-code"></span>)</p>
+                </div>
+                <div class="preview-invoice-details">
+                    <h2>TAX INVOICE</h2>
+                    <p>Invoice No: <strong><span id="preview-invoice-number"></span></strong></p>
+                    <p>Date: <span id="preview-invoice-date"></span></p>
+                    <p>Due Date: <span id="preview-due-date"></span></p>
+                </div>
+            </div>
+
+            <div class="preview-details">
+                <div class="preview-buyer">
+                    <h4>Bill To:</h4>
+                    <p><strong id="preview-buyer-name"></strong></p>
+                    <p id="preview-buyer-address"></p>
+                    <p>GSTIN: <span id="preview-buyer-gstin"></span></p>
+                    <p>State: <span id="preview-buyer-state-name"></span> (<span id="preview-buyer-state-code"></span>)</p>
+                </div>
+                <div class="preview-seller">
+                    <h4>IRN Details:</h4>
+                    <p>IRN: <span id="preview-irn">7ad9efc789c1ca0ed1a35e8ba63d7879cfabc456...</span></p>
+                    <p>Acknowledgement No: <span id="preview-ack">172910250000001</span></p>
+                    <p>Acknowledgement Date: <span id="preview-ack-date"></span></p>
+                    <div class="qr-code">
+                        <img src="/api/placeholder/120/120" alt="QR Code">
+                    </div>
+                </div>
+            </div>
+
+            <table class="preview-items">
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Item Description</th>
+                        <th>HSN/SAC</th>
+                        <th>Qty</th>
+                        <th>Unit</th>
+                        <th>Rate (₹)</th>
+                        <th>Taxable Value (₹)</th>
+                        <th>GST %</th>
+                        <th>GST Amount (₹)</th>
+                        <th>Total (₹)</th>
+                    </tr>
+                </thead>
+                <tbody id="preview-item-rows">
+                    <!-- Items will be inserted here -->
+                </tbody>
+            </table>
+
+            <div class="preview-summary">
+                <div class="preview-totals">
+                    <table>
+                        <tr>
+                            <td>Subtotal:</td>
+                            <td id="preview-subtotal">₹0.00</td>
+                        </tr>
+                        <tr>
+                            <td>CGST:</td>
+                            <td id="preview-cgst">₹0.00</td>
+                        </tr>
+                        <tr>
+                            <td>SGST:</td>
+                            <td id="preview-sgst">₹0.00</td>
+                        </tr>
+                        <tr>
+                            <td>IGST:</td>
+                            <td id="preview-igst">₹0.00</td>
+                        </tr>
+                        <tr class="grand-total">
+                            <td>Grand Total:</td>
+                            <td id="preview-grand-total">₹0.00</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" id="preview-amount-in-words">Rupees Zero Only</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="gst-notice">
+                <p>This is a computer generated invoice and does not require physical signature. This document is issued as per Rule 46 of the CGST Rules, 2017 and includes all information required therein.</p>
+            </div>
+
+            <div class="preview-signature">
+                <div class="signature-box">
+                    <div class="signature-line"></div>
+                    <p>Authorized Signatory</p>
+                </div>
+                <div class="signature-box">
+                    <div class="signature-line"></div>
+                    <p>Receiver's Signature</p>
+                </div>
+            </div>
+
+            <div class="preview-footer">
+                <p id="preview-notes"></p>
+                <p>Thank you for your business!</p>
+            </div>
+
+            <div class="watermark">
+                E-INVOICE
+            </div>
+
+            <div class="action-buttons">
+                <button type="button" class="btn btn-download" onclick="downloadInvoice()">Download Invoice</button>
+                <button type="button" class="btn btn-primary" onclick="printInvoice()">Print Invoice</button>
+                <button type="button" class="btn btn-success" onclick="window.location.reload()">Create New Invoice</button>
+            </div>
+        </div>
+    </div>
 
     <footer>
         <p>&copy; 2025 Government of India. All rights reserved.</p>
