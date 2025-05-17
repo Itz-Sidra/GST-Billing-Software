@@ -1,0 +1,364 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+/* Header */
+header {
+    display: flex;
+    align-items: center;
+    background-color: #003366;
+    color: white;
+    padding: 15px;
+    text-align: left;
+}
+
+.logo img {
+    width: 80px;
+    margin-right: 20px;
+}
+
+.heading h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.heading p {
+    font-size: 14px;
+    margin: 0;
+}
+
+/* Navigation Bar */
+nav {
+    background-color: #0056b3;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 8px 12px;
+    transition: 0.3s;
+}
+
+nav ul li a.active {
+    background-color: #004494;
+    border-radius: 4px;
+}
+
+        /* Main Content */
+        .contact-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        /* Contact Form Section */
+        .contact-form-section {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            color: #003366;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #495057;
+        }
+
+        .required::after {
+            content: "*";
+            color: #dc3545;
+            margin-left: 4px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .help-text {
+            font-size: 13px;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        /* Contact Info Section */
+        .contact-info-section {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .contact-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .info-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #e9f5ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .info-icon i {
+            color: #0056b3;
+            font-size: 18px;
+        }
+
+        .info-content h4 {
+            margin: 0 0 5px;
+            color: #003366;
+        }
+
+        .info-content p {
+            margin: 0;
+            color: #6c757d;
+            line-height: 1.5;
+        }
+
+        .gst-office-list {
+            margin-top: 15px;
+            padding-left: 20px;
+        }
+
+        .gst-office-list li {
+            margin-bottom: 8px;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        .faq-item {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #dee2e6;
+            padding-bottom: 15px;
+        }
+
+        .faq-item:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .faq-question {
+            font-weight: bold;
+            color: #003366;
+            margin-bottom: 8px;
+            cursor: pointer;
+            position: relative;
+            padding-right: 20px;
+        }
+
+        .faq-question::after {
+            content: "+";
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        .faq-question.active::after {
+            content: "-";
+        }
+
+        .faq-answer {
+            display: none;
+            color: #6c757d;
+            padding-top: 5px;
+            line-height: 1.5;
+        }
+
+        /* Map Section */
+        .map-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .map-responsive {
+            overflow: hidden;
+            padding-bottom: 56.25%;
+            position: relative;
+            height: 0;
+        }
+
+        .map-responsive iframe {
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            border-radius: 5px;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #c3e6cb;
+        }
+
+        /* Error Message */
+        .error-message {
+            color: #dc3545;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        
+        /* Social Media Icons */
+        .social-media {
+            margin-top: 20px;
+        }
+        
+        .social-media a {
+            display: inline-block;
+            margin: 0 10px;
+            color: #0056b3;
+            background-color: #f8f9fa;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-media a:hover {
+            background-color: #0056b3;
+            color: white;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .contact-container {
+                flex-direction: column;
+            }
+            
+            nav ul li {
+                margin: 0 8px;
+            }
+        }
+
+        /* Font Awesome Icons (simplified for demo) */
+        .fa {
+            display: inline-block;
+            font: normal normal normal 14px/1 sans-serif;
+            font-size: inherit;
+            text-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .fa-map-marker::before { content: "📍"; }
+        .fa-phone::before { content: "📞"; }
+        .fa-envelope::before { content: "✉️"; }
+        .fa-clock-o::before { content: "🕒"; }
+        .fa-facebook::before { content: "f"; }
+        .fa-twitter::before { content: "t"; }
+        .fa-linkedin::before { content: "in"; }
+        .fa-youtube::before { content: "▶"; }
