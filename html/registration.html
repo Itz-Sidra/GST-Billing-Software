@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GST Registration</title>
+    <link rel="stylesheet" href="../css/registration.css">
+    <script defer src="../js/registration.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="../assests/government of india.png" alt="Government Logo">
+        </div>
+        <div class="heading">
+            <h1>Goods and Services Tax</h1>
+            <p>Government of India, States and Union Territories</p>
+        </div>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="service.html">Services</a></li>
+            <li><a href="laws.html">GST Law</a></li>
+            <li><a href="downloads.html">Downloads</a></li>
+            <li><a href="search_taxpayer.html">Search Taxpayer</a></li>
+            <li><a href="help_taxpayer.html">Help and Taxpayer Facilities</a></li>
+            <li><a href="e_invoice.html">e-Invoice</a></li>
+            <li><a href="news_updates.html">News and Updates</a></li>
+            <li><a href="registration.html">Registration</a></li>
+        </ul>
+    </nav>
+    
+    <div class="registration-container">
+        <h2 class="form-title">GST Registration Form</h2>
+        
+        <div class="registration-info">
+            <p>Please complete all required fields marked with an asterisk (*). Make sure to provide accurate information as per your official documents. Your application will be processed within 7 working days.</p>
+        </div>
+        
+        <form id="gst-registration-form">
+            <div class="form-section">
+                <div class="section-title">Basic Information</div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="required" for="legal-name">Legal Name of Business</label>
+                        <input type="text" id="legal-name" name="legal-name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="trade-name">Trade Name (if any)</label>
+                        <input type="text" id="trade-name" name="trade-name">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="required" for="pan">PAN of Business</label>
+                        <input type="text" id="pan" name="pan" maxlength="10" required>
+                        <div class="help-text">10-character alphanumeric PAN</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="required" for="business-constitution">Constitution of Business</label>
+                        <select id="business-constitution" name="business-constitution" required>
+                            <option value="">Select Option</option>
+                            <option value="proprietorship">Proprietorship</option>
+                            <option value="partnership">Partnership</option>
+                            <option value="llp">Limited Liability Partnership</option>
+                            <option value="pvt-ltd">Private Limited Company</option>
+                            <option value="public-ltd">Public Limited Company</option>
+                            <option value="society">Society/Trust/Club</option>
+                            <option value="others">Others</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <div class="section-title">Principal Place of Business</div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="required" for="building">Building No./Flat No.</label>
+                        <input type="text" id="building" name="building" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="required" for="street">Street/Road/Lane</label>
+                        <input type="text" id="street" name="street" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="required" for="city">City/Town/Village</label>
+                        <input type="text" id="city" name="city" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="required" for="district">District</label>
+                        <input type="text" id="district" name="district" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="required" for="state">State</label>
+                        <select id="state" name="state" required>
+                            <option value="">Select State</option>
+                            <option value="andhra-pradesh">Andhra Pradesh</option>
+                            <option value="arunachal-pradesh">Arunachal Pradesh</option>
+                            <option value="assam">Assam</option>
+                            <option value="bihar">Bihar</option>
+                            <option value="chhattisgarh">Chhattisgarh</option>
+                            <option value="goa">Goa</option>
+                            <option value="gujarat">Gujarat</option>
+                            <option value="haryana">Haryana</option>
+                            <option value="himachal-pradesh">Himachal Pradesh</option>
+                            <option value="jharkhand">Jharkhand</option>
+                            <option value="karnataka">Karnataka</option>
+                            <option value="kerala">Kerala</option>
+                            <option value="madhya-pradesh">Madhya Pradesh</option>
+                            <option value="maharashtra">Maharashtra</option>
+                            <option value="manipur">Manipur</option>
+                            <option value="meghalaya">Meghalaya</option>
+                            <option value="mizoram">Mizoram</option>
+                            <option value="nagaland">Nagaland</option>
+                            <option value="odisha">Odisha</option>
+                            <option value="punjab">Punjab</option>
+                            <option value="rajasthan">Rajasthan</option>
+                            <option value="sikkim">Sikkim</option>
+                            <option value="tamil-nadu">Tamil Nadu</option>
+                            <option value="telangana">Telangana</option>
+                            <option value="tripura">Tripura</option>
+                            <option value="uttar-pradesh">Uttar Pradesh</option>
+                            <option value="uttarakhand">Uttarakhand</option>
+                            <option value="west-bengal">West Bengal</option>
+                            <option value="delhi">Delhi</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="required" for="pincode">PIN Code</label>
+                        <input type="text" id="pincode" name="pincode" maxlength="6" required>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <div class="section-title">Contact Information</div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="required" for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="required" for="mobile">Mobile Number</label>
+                        <input type="tel" id="mobile" name="mobile" maxlength="10" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="telephone">Telephone Number</label>
+                        <input type="tel" id="telephone" name="telephone">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fax">Fax Number (if any)</label>
+                        <input type="text" id="fax" name="fax">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <div class="section-title">Business Details</div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="required" for="business-type">Type of Business</label>
+                        <select id="business-type" name="business-type" required>
+                            <option value="">Select Option</option>
+                            <option value="manufacturing">Manufacturing</option>
+                            <option value="trader">Trader</option>
+                            <option value="service">Service Provider</option>
+                            <option value="works-contract">Works Contract</option>
+                            <option value="leasing">Leasing Business</option>
+                            <option value="composition">Composition Scheme</option>
+                            <option value="others">Others</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="required" for="turnover">Estimated Annual Turnover (₹)</label>
+                        <select id="turnover" name="turnover" required>
+                            <option value="">Select Range</option>
+                            <option value="upto-20">Upto ₹20 Lakhs</option>
+                            <option value="20-50">₹20-50 Lakhs</option>
+                            <option value="50-100">₹50 Lakhs - 1 Crore</option>
+                            <option value="1-5">₹1-5 Crores</option>
+                            <option value="5-plus">Above ₹5 Crores</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="required">Registration Type</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="regular" name="registration-type" value="regular" required>
+                                <label for="regular">Regular Registration</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="composition" name="registration-type" value="composition">
+                                <label for="composition">Composition Scheme</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="required" for="business-description">Brief Description of Business</label>
+                        <textarea id="business-description" name="business-description" rows="3" required></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <div class="section-title">Documents Upload</div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="required" for="pan-upload">PAN Card of Business</label>
+                        <div class="upload-btn" id="pan-upload">
+                            Choose File
+                            <input type="file" style="display: none" required>
+                        </div>
+                        <div class="help-text">Supported formats: JPG, PNG, PDF (Max: 2MB)</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="required" for="address-proof">Address Proof</label>
+                        <div class="upload-btn" id="address-proof">
+                            Choose File
+                            <input type="file" style="display: none" required>
+                        </div>
+                        <div class="help-text">Supported formats: JPG, PNG, PDF (Max: 2MB)</div>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="required" for="id-proof">ID Proof of Proprietor/Director</label>
+                        <div class="upload-btn" id="id-proof">
+                            Choose File
+                            <input type="file" style="display: none" required>
+                        </div>
+                        <div class="help-text">Supported formats: JPG, PNG, PDF (Max: 2MB)</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="business-proof">Business Registration Document</label>
+                        <div class="upload-btn" id="business-proof">
+                            Choose File
+                            <input type="file" style="display: none">
+                        </div>
+                        <div class="help-text">Supported formats: JPG, PNG, PDF (Max: 2MB)</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group" style="flex: 100%">
+                    <input type="checkbox" id="declaration" name="declaration" required>
+                    <label for="declaration">I hereby declare that the information provided above is true to the best of my knowledge and belief. I understand that providing false information may result in rejection of application and legal consequences.</label>
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <button type="button" class="btn btn-secondary">Save as Draft</button>
+                <button type="submit" class="btn btn-primary">Submit Application</button>
+            </div>
+        </form>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 Government of India. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Handle file upload button styling
+        document.querySelectorAll('.upload-btn').forEach(btn => {
+            const fileInput = btn.querySelector('input[type="file"]');
+            
+            btn.addEventListener('click', () => {
+                fileInput.click();
+            });
+            
+            fileInput.addEventListener('change', () => {
+                if (fileInput.files.length > 0) {
+                    btn.textContent = fileInput.files[0].name;
+                } else {
+                    btn.textContent = 'Choose File';
+                }
+            });
+        });
+        
+        // Form validation and submission
+        document.getElementById('gst-registration-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Basic validation
+            const requiredFields = document.querySelectorAll('[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value) {
+                    isValid = false;
+                    field.style.borderColor = '#dc3545';
+                } else {
+                    field.style.borderColor = '#ced4da';
+                }
+            });
+            
+            if (isValid) {
+                alert('Your GST Registration application has been submitted successfully! Your application reference number is: GST-' + Math.floor(100000 + Math.random() * 900000));
+                // In a real application, you would send the form data to the server here
+            } else {
+                alert('Please fill in all required fields marked with *');
+            }
+        });
+    </script>
+</body>
+</html>
