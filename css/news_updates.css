@@ -10,27 +10,29 @@ body {
 header {
     display: flex;
     align-items: center;
-    background-color: #004085;
+    background-color: #003366;
     color: white;
     padding: 15px;
+    text-align: left;
 }
 
 .logo img {
-    height: 50px;
-    margin-right: 15px;
+    width: 80px;
+    margin-right: 20px;
 }
 
 .heading h1 {
-    margin: 0;
     font-size: 24px;
+    margin: 0;
 }
 
 .heading p {
-    margin: 0;
     font-size: 14px;
+    margin: 0;
 }
 
-/* Navigation */
+
+/* Navigation Bar */
 nav {
     background-color: #0056b3;
     padding: 10px 0;
@@ -40,11 +42,11 @@ nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
+    text-align: center;
 }
 
 nav ul li {
+    display: inline;
     margin: 0 15px;
 }
 
@@ -52,13 +54,14 @@ nav ul li a {
     color: white;
     text-decoration: none;
     font-size: 16px;
-    padding: 8px 15px;
+    font-weight: bold;
+    padding: 8px 12px;
     transition: 0.3s;
 }
 
-nav ul li a:hover {
-    background-color: #003366;
-    border-radius: 5px;
+nav ul li a.active {
+    background-color: #004494;
+    border-radius: 4px;
 }
 
 /* News Section */
@@ -78,23 +81,29 @@ nav ul li a:hover {
 
 #news-list {
     text-align: left;
-    padding-left: 20px;
+    padding-left: 0;
+    list-style-type: none;
+    margin: 0;
 }
 
 #news-list li {
     background-color: #e9ecef;
-    padding: 10px;
-    margin: 5px 0;
+    padding: 10px 15px;
+    margin: 8px 0;
     border-left: 4px solid #007bff;
     border-radius: 5px;
+    position: relative;
+    overflow-wrap: break-word;
 }
 
+/* Input and Button */
 input[type="text"] {
     width: 70%;
     padding: 10px;
     margin-top: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    max-width: 100%;
 }
 
 button {
@@ -106,10 +115,30 @@ button {
     cursor: pointer;
     margin-left: 10px;
     transition: 0.3s;
+    white-space: nowrap;
 }
 
 button:hover {
     background-color: #0056b3;
+}
+
+/* Delete Button */
+.delete-btn {
+    background: none;
+    border: none;
+    color: red;
+    font-size: 16px;
+    float: right;
+    cursor: pointer;
+    margin-left: 10px;
+    padding: 0;
+    line-height: 1;
+    transition: transform 0.2s;
+}
+
+.delete-btn:hover {
+    transform: scale(1.2);
+    color: #bd2130;
 }
 
 /* Footer */
@@ -119,4 +148,45 @@ footer {
     background-color: #004085;
     color: white;
     margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .logo img {
+        height: 40px;
+    }
+
+    .heading h1 {
+        font-size: 20px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    nav ul li {
+        margin: 5px 0;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    button {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .delete-btn {
+        font-size: 14px;
+        float: none;
+        display: inline-block;
+        margin-top: 5px;
+    }
+
+    #news-list li {
+        padding-right: 30px;
+    }
 }
