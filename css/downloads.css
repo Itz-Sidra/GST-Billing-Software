@@ -30,7 +30,7 @@ header {
     font-size: 14px;
 }
 
-/* Navigation */
+/* Navigation Bar */
 nav {
     background-color: #0056b3;
     padding: 10px 0;
@@ -40,11 +40,11 @@ nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
+    text-align: center;
 }
 
 nav ul li {
+    display: inline;
     margin: 0 15px;
 }
 
@@ -52,13 +52,14 @@ nav ul li a {
     color: white;
     text-decoration: none;
     font-size: 16px;
-    padding: 8px 15px;
+    font-weight: bold;
+    padding: 8px 12px;
     transition: 0.3s;
 }
 
-nav ul li a:hover {
-    background-color: #003366;
-    border-radius: 5px;
+nav ul li a.active {
+    background-color: #004494;
+    border-radius: 4px;
 }
 
 /* Downloads Section */
@@ -75,6 +76,8 @@ nav ul li a:hover {
     text-align: center;
     color: #004085;
 }
+
+
 
 #searchInput {
     width: 100%;
@@ -115,3 +118,53 @@ footer {
     color: white;
     margin-top: 20px;
 }
+
+@media screen and (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: center;
+    }
+
+    .logo img {
+        margin: 0 auto 10px;
+    }
+
+    .heading h1 {
+        font-size: 20px;
+    }
+
+    .heading p {
+        font-size: 12px;
+    }
+
+    nav ul {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    nav ul li {
+        display: block;
+        margin: 0;
+    }
+
+    nav ul li a {
+        display: block;
+        padding: 10px;
+    }
+
+    .downloads-section {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    #searchInput {
+        font-size: 14px;
+    }
+
+    #downloadList li {
+        font-size: 14px;
+    }
+}
+
