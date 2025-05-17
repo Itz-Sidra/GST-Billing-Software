@@ -1,11 +1,10 @@
 
-/* Global Styles */
+/* General Styles */
 body {
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
     background-color: #f8f9fa;
-    color: #333;
 }
 
 /* Header */
@@ -17,17 +16,20 @@ header {
     padding: 15px;
     text-align: left;
 }
-header .logo img {
+
+.logo img {
     width: 80px;
     margin-right: 20px;
 }
-header .heading h1 {
-    margin: 0;
+
+.heading h1 {
     font-size: 24px;
-}
-header .heading p {
     margin: 0;
+}
+
+.heading p {
     font-size: 14px;
+    margin: 0;
 }
 
 /* Navigation Bar */
