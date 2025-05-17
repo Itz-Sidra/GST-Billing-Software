@@ -81,7 +81,7 @@ Use the following GSTINs on the **Search Taxpayer** page:
    ```bash
    git clone https://github.com/yourusername/gst-billing-software.git
    cd gst-billing-software
-````
+    ```
 
 2. Open `home.html` in your browser:
 
