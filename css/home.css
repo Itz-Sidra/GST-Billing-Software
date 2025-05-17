@@ -192,3 +192,71 @@ footer {
     padding: 10px;
     margin-top: 20px;
 }
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    .hero {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero img {
+        width: 80%;
+    }
+
+    .faq, .news-updates, .sales-chart-container {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    nav ul li {
+        margin: 0 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .logo img {
+        width: 60px;
+        margin-bottom: 10px;
+    }
+
+    .heading h1 {
+        font-size: 20px;
+    }
+
+    .heading p {
+        font-size: 12px;
+    }
+
+    nav ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        margin: 5px 0;
+    }
+
+    .faq h2, .news-updates h2 {
+        font-size: 20px;
+    }
+
+    .faq-question {
+        font-size: 15px;
+    }
+
+    .faq-answer {
+        font-size: 14px;
+    }
+
+    footer {
+        font-size: 14px;
+    }
+}
