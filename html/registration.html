@@ -41,6 +41,43 @@
         </div>
         
         <form id="gst-registration-form">
+
+            <div class="form-section">
+                <div class="section-title">User Information</div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="required" for="user-name">Name</label>
+                        <input type="text" id="user-name" name="user-name" required>
+                        <div class="help-text">Only alphabets and spaces allowed</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="required" for="prn">PRN</label>
+                        <input type="text" id="prn" name="prn" maxlength="8" required>
+                        <div class="help-text">Exactly 8 digits required</div>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="required" for="branch">Branch</label>
+                        <select id="branch" name="branch" required>
+                            <option value="">Select Branch</option>
+                            <option value="CS">CS</option>
+                            <option value="AIML">AIML</option>
+                            <option value="IT">IT</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="required" for="department">Department</label>
+                        <input type="text" id="department" name="department" required>
+                        <div class="help-text">Only alphabets and spaces allowed</div>
+                    </div>
+                </div>
+            </div>
+
             <div class="form-section">
                 <div class="section-title">Basic Information</div>
                 
