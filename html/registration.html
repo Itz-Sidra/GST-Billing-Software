@@ -5,7 +5,528 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GST Registration</title>
     <link rel="stylesheet" href="../css/registration.css">
+    
+     <!-- Bootstrap & jQuery CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
     <script defer src="../js/registration.js"></script>
+     <script>
+        // jQuery ready function
+        $(document).ready(function() {
+            
+            // Initialize form progress
+            updateProgress();
+            
+            // Real-time validation
+            $('input, select, textarea').on('input change', function() {
+                validateField($(this));
+                updateProgress();
+            });
+            
+            // Character counter for business description
+            $('#business-description').on('input', function() {
+                const maxLength = 500;
+                const currentLength = $(this).val().length;
+                $('#char-count').text(currentLength);
+                
+                if (currentLength > maxLength) {
+                    $(this).val($(this).val().substring(0, maxLength));
+                    $('#char-count').text(maxLength);
+                }
+            });
+            
+            // PAN field formatting
+            $('#pan').on('input', function() {
+                this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+                validatePAN($(this));
+            });
+            
+            // Mobile number validation
+            $('#mobile').on('input', function() {
+                this.value = this.value.replace(/[^0-9]/g, '');
+                validateMobile($(this));
+            });
+            
+            // PRN validation
+            $('#prn').on('input', function() {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+            
+            // Pincode validation
+            $('#pincode').on('input', function() {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+            
+            // Name and department validation (only alphabets and spaces)
+            $('#user-name, #department').on('input', function() {
+                this.value = this.value.replace(/[^a-zA-Z\s]/g, '');
+            });
+            
+            // OTP functionality
+            $('#send-otp').click(function() {
+                const mobile = $('#mobile').val();
+                if (mobile.length === 10 && /^[6-9]/.test(mobile)) {
+                    sendOTP(mobile);
+                } else {
+                    showAlert('Please enter a valid 10-digit mobile number starting with 6-9', 'danger');
+                }
+            });
+            
+            $('#verify-otp').click(function() {
+                verifyOTP();
+            });
+            
+            // File upload handlers
+            $('.upload-btn').each(function() {
+                const $btn = $(this);
+                const $input = $btn.find('input[type="file"]');
+                const $container = $btn.closest('.upload-container');
+                const $preview = $container.find('.upload-preview');
+                
+                $btn.click(function(e) {
+                    if (e.target !== $input[0]) {
+                        $input.click();
+                    }
+                });
+                
+                $input.change(function() {
+                    const file = this.files[0];
+                    if (file) {
+                        if (validateFile(file, $(this))) {
+                            $preview.find('.file-name').text(file.name);
+                            $btn.hide();
+                            $preview.show();
+                        }
+                    }
+                });
+                
+                $container.find('.remove-file').click(function() {
+                    $input.val('');
+                    $preview.hide();
+                    $btn.show();
+                    $input.removeClass('is-invalid');
+                });
+            });
+            
+            // Save draft functionality
+            $('#save-draft').click(function() {
+                const formData = getFormData();
+                // In real application, save to server
+                showAlert('Draft saved successfully!', 'success');
+            });
+            
+            // Form submission
+            $('#gst-registration-form').submit(function(e) {
+                e.preventDefault();
+                
+                if (validateForm()) {
+                    submitForm();
+                }
+            });
+            
+            // Pincode verification
+            $('#verify-pincode').click(function() {
+                const pincode = $('#pincode').val();
+                if (pincode.length === 6) {
+                    // Simulate API call
+                    $(this).html('<i class="fas fa-spinner fa-spin"></i>');
+                    setTimeout(() => {
+                        $(this).html('<i class="fas fa-check text-success"></i>');
+                        showAlert('Pincode verified successfully!', 'success');
+                    }, 1000);
+                }
+            });
+        });
+        
+        // Validation functions
+        function validateField($field) {
+            const fieldType = $field.attr('type') || $field.prop('tagName').toLowerCase();
+            const value = $field.val().trim();
+            const isRequired = $field.prop('required');
+            
+            let isValid = true;
+            let message = '';
+            
+            if (isRequired && !value) {
+                isValid = false;
+                message = 'This field is required';
+            } else if (value) {
+                switch ($field.attr('id')) {
+                    case 'user-name':
+                    case 'department':
+                        if (!/^[a-zA-Z\s]+$/.test(value)) {
+                            isValid = false;
+                            message = 'Only alphabets and spaces allowed';
+                        }
+                        break;
+                    case 'prn':
+                        if (!/^\d{8}$/.test(value)) {
+                            isValid = false;
+                            message = 'PRN must be exactly 8 digits';
+                        }
+                        break;
+                    case 'pan':
+                        if (!/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(value)) {
+                            isValid = false;
+                            message = 'Invalid PAN format (AAAAA9999A)';
+                        }
+                        break;
+                    case 'email':
+                        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                            isValid = false;
+                            message = 'Invalid email format';
+                            }
+                        break;
+                    case 'mobile':
+                        if (!/^[6-9]\d{9}$/.test(value)) {
+                            isValid = false;
+                            message = 'Mobile number must start with 6-9 and be 10 digits';
+                        }
+                        break;
+                    case 'pincode':
+                        if (!/^\d{6}$/.test(value)) {
+                            isValid = false;
+                            message = 'PIN code must be 6 digits';
+                        }
+                        break;
+                    case 'otp':
+                        if (!/^\d{6}$/.test(value)) {
+                            isValid = false;
+                            message = 'OTP must be 6 digits';
+                        }
+                        break;
+                }
+            }
+            
+            if (isValid) {
+                $field.removeClass('is-invalid').addClass('is-valid');
+                $field.siblings('.invalid-feedback').text('');
+            } else {
+                $field.removeClass('is-valid').addClass('is-invalid');
+                $field.siblings('.invalid-feedback').text(message);
+            }
+            
+            return isValid;
+        }
+        
+        function validatePAN($field) {
+            const value = $field.val().trim();
+            const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+            
+            if (value && !panRegex.test(value)) {
+                $field.removeClass('is-valid').addClass('is-invalid');
+                $field.siblings('.invalid-feedback').text('Invalid PAN format (AAAAA9999A)');
+                return false;
+            } else if (value) {
+                $field.removeClass('is-invalid').addClass('is-valid');
+                $field.siblings('.invalid-feedback').text('');
+                return true;
+            }
+            return false;
+        }
+        
+        function validateMobile($field) {
+            const value = $field.val().trim();
+            const mobileRegex = /^[6-9]\d{9}$/;
+            
+            if (value && !mobileRegex.test(value)) {
+                $field.removeClass('is-valid').addClass('is-invalid');
+                $field.siblings('.invalid-feedback').text('Mobile number must start with 6-9 and be 10 digits');
+                return false;
+            } else if (value && mobileRegex.test(value)) {
+                $field.removeClass('is-invalid').addClass('is-valid');
+                $field.siblings('.invalid-feedback').text('');
+                return true;
+            }
+            return false;
+        }
+        
+        function validateFile(file, $input) {
+            const maxSize = 2 * 1024 * 1024; // 2MB
+            const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'];
+            
+            if (file.size > maxSize) {
+                $input.addClass('is-invalid');
+                $input.closest('.form-group').find('.invalid-feedback').text('File size must be less than 2MB');
+                showAlert('File size must be less than 2MB', 'danger');
+                return false;
+            }
+            
+            if (!allowedTypes.includes(file.type)) {
+                $input.addClass('is-invalid');
+                $input.closest('.form-group').find('.invalid-feedback').text('Only JPG, PNG, and PDF files are allowed');
+                showAlert('Only JPG, PNG, and PDF files are allowed', 'danger');
+                return false;
+            }
+            
+            $input.removeClass('is-invalid').addClass('is-valid');
+            $input.closest('.form-group').find('.invalid-feedback').text('');
+            return true;
+        }
+        
+        function validateForm() {
+            let isValid = true;
+            
+            // Validate all required fields
+            $('input[required], select[required], textarea[required]').each(function() {
+                if (!validateField($(this))) {
+                    isValid = false;
+                }
+            });
+            
+            // Check if required files are uploaded
+            $('input[type="file"][required]').each(function() {
+                if (!this.files || !this.files[0]) {
+                    $(this).addClass('is-invalid');
+                    $(this).closest('.form-group').find('.invalid-feedback').text('Please upload the required document');
+                    isValid = false;
+                } else {
+                    $(this).removeClass('is-invalid').addClass('is-valid');
+                }
+            });
+            
+            // Check if declaration is accepted
+            if (!$('#declaration').is(':checked')) {
+                $('#declaration').addClass('is-invalid');
+                $('#declaration').siblings('.invalid-feedback').text('You must accept the declaration');
+                isValid = false;
+            } else {
+                $('#declaration').removeClass('is-invalid');
+            }
+            
+            if (!isValid) {
+                showAlert('Please fix all errors before submitting', 'danger');
+                // Scroll to first error
+                const firstError = $('.is-invalid').first();
+                if (firstError.length) {
+                    $('html, body').animate({
+                        scrollTop: firstError.offset().top - 100
+                    }, 500);
+                }
+            }
+            
+            return isValid;
+        }
+        
+        function updateProgress() {
+            const totalFields = $('input[required], select[required], textarea[required]').length;
+            const validFields = $('.is-valid').length;
+            const progress = Math.round((validFields / totalFields) * 100);
+            
+            $('#form-progress').css('width', progress + '%').attr('aria-valuenow', progress);
+        }
+        
+        function sendOTP(mobile) {
+            $('#send-otp').prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Sending...');
+            
+            // Simulate API call
+            setTimeout(() => {
+                const otp = Math.floor(100000 + Math.random() * 900000);
+                
+                $('#otp-section').slideDown();
+                $('#send-otp').prop('disabled', false).html('Resend OTP');
+                
+                showAlert(`OTP sent to +91-${mobile}. OTP: ${otp} (Demo)`, 'success');
+                
+                // Start timer
+                startOTPTimer();
+                
+                // Store OTP for verification (in real app, this would be server-side)
+                window.sentOTP = otp.toString();
+            }, 2000);
+        }
+        
+        function verifyOTP() {
+            const enteredOTP = $('#otp').val();
+            const correctOTP = window.sentOTP;
+            
+            if (enteredOTP === correctOTP) {
+                $('#verify-otp').removeClass('btn-success').addClass('btn-outline-success').html('<i class="fas fa-check"></i> Verified').prop('disabled', true);
+                $('#otp').removeClass('is-invalid').addClass('is-valid').prop('disabled', true);
+                $('#mobile').removeClass('is-invalid').addClass('is-valid');
+                showAlert('Mobile number verified successfully!', 'success');
+                window.mobileVerified = true;
+            } else {
+                $('#otp').removeClass('is-valid').addClass('is-invalid');
+                showAlert('Invalid OTP. Please try again.', 'danger');
+            }
+        }
+        
+        function startOTPTimer() {
+            let timeLeft = 300; // 5 minutes
+            const timer = setInterval(() => {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                $('#otp-timer').text(`OTP expires in ${minutes}:${seconds.toString().padStart(2, '0')}`);
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    $('#otp-timer').text('OTP expired. Please request a new one.');
+                    $('#send-otp').html('Send OTP');
+                }
+                timeLeft--;
+            }, 1000);
+        }
+        
+        function getFormData() {
+            const formData = new FormData($('#gst-registration-form')[0]);
+            const data = {};
+            
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+            
+            return data;
+        }
+        
+        function submitForm() {
+            const $submitBtn = $('#submit-btn');
+            $submitBtn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin me-2"></i>Submitting...');
+            
+            // Check if mobile is verified
+            if (!window.mobileVerified) {
+                showAlert('Please verify your mobile number before submitting', 'warning');
+                $submitBtn.prop('disabled', false).html('<i class="fas fa-paper-plane me-2"></i>Submit Application');
+                return;
+            }
+            
+            // Simulate form submission
+            setTimeout(() => {
+                const referenceNumber = 'GST' + Date.now();
+                $('#reference-number').text(referenceNumber);
+                
+                // Show success modal
+                const successModal = new bootstrap.Modal($('#successModal'));
+                successModal.show();
+                
+                // Reset form
+                $('#gst-registration-form')[0].reset();
+                $('.is-valid, .is-invalid').removeClass('is-valid is-invalid');
+                $('.upload-preview').hide();
+                $('.upload-btn').show();
+                $('#otp-section').hide();
+                updateProgress();
+                
+                $submitBtn.prop('disabled', false).html('<i class="fas fa-paper-plane me-2"></i>Submit Application');
+                
+                showAlert('Application submitted successfully!', 'success');
+            }, 3000);
+        }
+        
+        function showAlert(message, type) {
+            const alertHtml = `
+                <div class="alert alert-${type} alert-dismissible fade show d-flex align-items-center" role="alert">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'danger' ? 'exclamation-triangle' : 'info-circle'} me-2"></i>
+                    <div>${message}</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            `;
+            
+            $('#form-alerts').html(alertHtml);
+            
+            // Auto-dismiss after 5 seconds
+            setTimeout(() => {
+                $('.alert').alert('close');
+            }, 5000);
+        }
+        
+        // Additional utility functions
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('en-IN', {
+                style: 'currency',
+                currency: 'INR'
+            }).format(value);
+        }
+        
+        function generateApplicationNumber() {
+            const date = new Date();
+            const year = date.getFullYear();
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const day = date.getDate().toString().padStart(2, '0');
+            const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+            
+            return `GST${year}${month}${day}${random}`;
+        }
+        
+        // Auto-save draft functionality
+        let autoSaveInterval;
+        function startAutoSave() {
+            autoSaveInterval = setInterval(() => {
+                const formData = getFormData();
+                // In real application, save to server
+                console.log('Auto-saving draft...', formData);
+            }, 30000); // Auto-save every 30 seconds
+        }
+        
+        function stopAutoSave() {
+            if (autoSaveInterval) {
+                clearInterval(autoSaveInterval);
+            }
+        }
+        
+        // Start auto-save when user starts filling form
+        let hasStartedFilling = false;
+        $('input, select, textarea').one('input change', function() {
+            if (!hasStartedFilling) {
+                hasStartedFilling = true;
+                startAutoSave();
+            }
+        });
+        
+        // Stop auto-save when form is submitted or page is unloaded
+        $(window).on('beforeunload', function() {
+            stopAutoSave();
+        });
+        
+        // Prevent form submission on Enter key (except for submit button)
+        $('#gst-registration-form').on('keydown', function(e) {
+            if (e.key === 'Enter' && e.target.type !== 'submit') {
+                e.preventDefault();
+                const inputs = $(this).find('input, select, textarea, button').filter(':visible');
+                const currentIndex = inputs.index(e.target);
+                if (currentIndex < inputs.length - 1) {
+                    inputs.eq(currentIndex + 1).focus();
+                }
+            }
+        });
+        
+        // Add smooth transitions
+        $('.form-section').hide().fadeIn(1000);
+        
+        // Initialize tooltips
+        $('[data-bs-toggle="tooltip"]').tooltip();
+        
+        // Add loading overlay function
+        function showLoadingOverlay(message = 'Loading...') {
+            const overlay = `
+                <div class="loading-overlay" style="
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.5);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 9999;
+                ">
+                    <div class="text-center text-white">
+                        <div class="spinner-border mb-3" role="status"></div>
+                        <div>${message}</div>
+                    </div>
+                </div>
+            `;
+            $('body').append(overlay);
+        }
+        
+        function hideLoadingOverlay() {
+            $('.loading-overlay').remove();
+        }
+        </script>
 </head>
 <body>
     <header>
@@ -28,7 +549,7 @@
             <li><a href="search_taxpayer.html">Search Taxpayer</a></li>
             <li><a href="help_taxpayer.html">Taxpayer Facilities</a></li>
             <li><a href="news_updates.html">News and Updates</a></li>
-            <li><a href="registration.html">Registration</a></li>
+            <li><a href="registration.html" class="active">Registration</a></li>
             <li><a href="contact.html">Contact</a></li>
         </ul>
     </nav>
@@ -36,73 +557,101 @@
     <div class="registration-container">
         <h2 class="form-title">GST Registration Form</h2>
         
-        <div class="registration-info">
-            <p>Please complete all required fields marked with an asterisk (*). Make sure to provide accurate information as per your official documents. Your application will be processed within 7 working days.</p>
+        <!-- Progress Bar -->
+        <div class="progress mb-4" style="height: 8px;">
+            <div class="progress-bar bg-primary" role="progressbar" style="width: 0%" id="form-progress"></div>
         </div>
         
-        <form id="gst-registration-form">
+        <!-- Alert for form status -->
+        <div id="form-alerts"></div>
+        
+        <div class="registration-info">
+            <div class="alert alert-info d-flex align-items-center" role="alert">
+                <i class="fas fa-info-circle me-2"></i>
+                <div>
+                    Please complete all required fields marked with an asterisk (*). Make sure to provide accurate information as per your official documents. Your application will be processed within 7 working days.
+                </div>
+            </div>
+        </div>
+        
+        <form id="gst-registration-form" novalidate>
 
             <div class="form-section">
-                <div class="section-title">User Information</div>
+                <div class="section-title">
+                    <i class="fas fa-user me-2"></i>User Information
+                </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label class="required" for="user-name">Name</label>
-                        <input type="text" id="user-name" name="user-name" required>
+                        <input type="text" id="user-name" name="user-name" class="form-control" required>
                         <div class="help-text">Only alphabets and spaces allowed</div>
+                        <div class="invalid-feedback"></div>
                     </div>
                     
                     <div class="form-group">
                         <label class="required" for="prn">PRN</label>
-                        <input type="text" id="prn" name="prn" maxlength="8" required>
+                        <input type="text" id="prn" name="prn" class="form-control" maxlength="8" required>
                         <div class="help-text">Exactly 8 digits required</div>
+                        <div class="invalid-feedback"></div>
                     </div>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label class="required" for="branch">Branch</label>
-                        <select id="branch" name="branch" required>
+                        <select id="branch" name="branch" class="form-select" required>
                             <option value="">Select Branch</option>
                             <option value="CS">CS</option>
                             <option value="AIML">AIML</option>
                             <option value="IT">IT</option>
                         </select>
+                        <div class="invalid-feedback"></div>
                     </div>
                     
                     <div class="form-group">
                         <label class="required" for="department">Department</label>
-                        <input type="text" id="department" name="department" required>
+                        <input type="text" id="department" name="department" class="form-control" required>
                         <div class="help-text">Only alphabets and spaces allowed</div>
+                        <div class="invalid-feedback"></div>
                     </div>
                 </div>
             </div>
 
             <div class="form-section">
-                <div class="section-title">Basic Information</div>
+                <div class="section-title">
+                    <i class="fas fa-building me-2"></i>Basic Information
+                </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label class="required" for="legal-name">Legal Name of Business</label>
-                        <input type="text" id="legal-name" name="legal-name" required>
+                        <input type="text" id="legal-name" name="legal-name" class="form-control" required>
+                        <div class="invalid-feedback"></div>
                     </div>
                     
                     <div class="form-group">
                         <label for="trade-name">Trade Name (if any)</label>
-                        <input type="text" id="trade-name" name="trade-name">
+                        <input type="text" id="trade-name" name="trade-name" class="form-control">
                     </div>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label class="required" for="pan">PAN of Business</label>
-                        <input type="text" id="pan" name="pan" maxlength="10" required>
+                        <div class="input-group">
+                            <input type="text" id="pan" name="pan" class="form-control" maxlength="10" required style="text-transform: uppercase;">
+                            <span class="input-group-text">
+                                <i class="fas fa-id-card"></i>
+                            </span>
+                        </div>
                         <div class="help-text">10-character alphanumeric PAN</div>
+                        <div class="invalid-feedback"></div>
                     </div>
                     
                     <div class="form-group">
                         <label class="required" for="business-constitution">Constitution of Business</label>
-                        <select id="business-constitution" name="business-constitution" required>
+                        <select id="business-constitution" name="business-constitution" class="form-select" required>
                             <option value="">Select Option</option>
                             <option value="proprietorship">Proprietorship</option>
                             <option value="partnership">Partnership</option>
@@ -112,41 +661,48 @@
                             <option value="society">Society/Trust/Club</option>
                             <option value="others">Others</option>
                         </select>
+                        <div class="invalid-feedback"></div>
                     </div>
                 </div>
             </div>
             
             <div class="form-section">
-                <div class="section-title">Principal Place of Business</div>
+                <div class="section-title">
+                    <i class="fas fa-map-marker-alt me-2"></i>Principal Place of Business
+                </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label class="required" for="building">Building No./Flat No.</label>
-                        <input type="text" id="building" name="building" required>
+                        <input type="text" id="building" name="building" class="form-control" required>
+                        <div class="invalid-feedback"></div>
                     </div>
                     
                     <div class="form-group">
                         <label class="required" for="street">Street/Road/Lane</label>
-                        <input type="text" id="street" name="street" required>
+                        <input type="text" id="street" name="street" class="form-control" required>
+                        <div class="invalid-feedback"></div>
                     </div>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label class="required" for="city">City/Town/Village</label>
-                        <input type="text" id="city" name="city" required>
+                        <input type="text" id="city" name="city" class="form-control" required>
+                        <div class="invalid-feedback"></div>
                     </div>
                     
                     <div class="form-group">
                         <label class="required" for="district">District</label>
-                        <input type="text" id="district" name="district" required>
+                        <input type="text" id="district" name="district" class="form-control" required>
+                        <div class="invalid-feedback"></div>
                     </div>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label class="required" for="state">State</label>
-                        <select id="state" name="state" required>
+                        <select id="state" name="state" class="form-select" required>
                             <option value="">Select State</option>
                             <option value="andhra-pradesh">Andhra Pradesh</option>
                             <option value="arunachal-pradesh">Arunachal Pradesh</option>
@@ -178,50 +734,87 @@
                             <option value="west-bengal">West Bengal</option>
                             <option value="delhi">Delhi</option>
                         </select>
+                        <div class="invalid-feedback"></div>
                     </div>
                     
                     <div class="form-group">
                         <label class="required" for="pincode">PIN Code</label>
-                        <input type="text" id="pincode" name="pincode" maxlength="6" required>
+                        <div class="input-group">
+                            <input type="text" id="pincode" name="pincode" class="form-control" maxlength="6" required>
+                            <button class="btn btn-outline-secondary" type="button" id="verify-pincode">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <div class="invalid-feedback"></div>
                     </div>
                 </div>
             </div>
             
             <div class="form-section">
-                <div class="section-title">Contact Information</div>
+                <div class="section-title">
+                    <i class="fas fa-phone me-2"></i>Contact Information
+                </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label class="required" for="email">Email Address</label>
-                        <input type="email" id="email" name="email" required>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                        </div>
+                        <div class="invalid-feedback"></div>
                     </div>
                     
                     <div class="form-group">
                         <label class="required" for="mobile">Mobile Number</label>
-                        <input type="tel" id="mobile" name="mobile" maxlength="10" required>
+                        <div class="input-group">
+                            <span class="input-group-text">+91</span>
+                            <input type="tel" id="mobile" name="mobile" class="form-control" maxlength="10" required>
+                            <button class="btn btn-outline-secondary" type="button" id="send-otp">
+                                Send OTP
+                            </button>
+                        </div>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                </div>
+                
+                <div class="form-row" id="otp-section" style="display: none;">
+                    <div class="form-group">
+                        <label for="otp">Enter OTP</label>
+                        <div class="input-group">
+                            <input type="text" id="otp" name="otp" class="form-control" maxlength="6" placeholder="Enter 6-digit OTP">
+                            <button class="btn btn-success" type="button" id="verify-otp">
+                                <i class="fas fa-check"></i> Verify
+                            </button>
+                        </div>
+                        <div class="form-text text-success" id="otp-timer"></div>
                     </div>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="telephone">Telephone Number</label>
-                        <input type="tel" id="telephone" name="telephone">
+                        <input type="tel" id="telephone" name="telephone" class="form-control">
                     </div>
                     
                     <div class="form-group">
                         <label for="fax">Fax Number (if any)</label>
-                        <input type="text" id="fax" name="fax">
+                        <input type="text" id="fax" name="fax" class="form-control">
                     </div>
                 </div>
             </div>
             
             <div class="form-section">
-                <div class="section-title">Business Details</div>
+                <div class="section-title">
+                    <i class="fas fa-briefcase me-2"></i>Business Details
+                </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label class="required" for="business-type">Type of Business</label>
-                        <select id="business-type" name="business-type" required>
+                        <select id="business-type" name="business-type" class="form-select" required>
                             <option value="">Select Option</option>
                             <option value="manufacturing">Manufacturing</option>
                             <option value="trader">Trader</option>
@@ -231,11 +824,12 @@
                             <option value="composition">Composition Scheme</option>
                             <option value="others">Others</option>
                         </select>
+                        <div class="invalid-feedback"></div>
                     </div>
                     
                     <div class="form-group">
                         <label class="required" for="turnover">Estimated Annual Turnover (₹)</label>
-                        <select id="turnover" name="turnover" required>
+                        <select id="turnover" name="turnover" class="form-select" required>
                             <option value="">Select Range</option>
                             <option value="upto-20">Upto ₹20 Lakhs</option>
                             <option value="20-50">₹20-50 Lakhs</option>
@@ -243,6 +837,7 @@
                             <option value="1-5">₹1-5 Crores</option>
                             <option value="5-plus">Above ₹5 Crores</option>
                         </select>
+                        <div class="invalid-feedback"></div>
                     </div>
                 </div>
                 
@@ -250,64 +845,114 @@
                     <div class="form-group">
                         <label class="required">Registration Type</label>
                         <div class="radio-group">
-                            <div class="radio-option">
-                                <input type="radio" id="regular" name="registration-type" value="regular" required>
-                                <label for="regular">Regular Registration</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="regular" name="registration-type" value="regular" required>
+                                <label class="form-check-label" for="regular">
+                                    <i class="fas fa-building me-1"></i>Regular Registration
+                                </label>
                             </div>
-                            <div class="radio-option">
-                                <input type="radio" id="composition" name="registration-type" value="composition">
-                                <label for="composition">Composition Scheme</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="composition" name="registration-type" value="composition">
+                                <label class="form-check-label" for="composition">
+                                    <i class="fas fa-calculator me-1"></i>Composition Scheme
+                                </label>
                             </div>
                         </div>
+                        <div class="invalid-feedback"></div>
                     </div>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label class="required" for="business-description">Brief Description of Business</label>
-                        <textarea id="business-description" name="business-description" rows="3" required></textarea>
+                        <textarea id="business-description" name="business-description" class="form-control" rows="3" required placeholder="Describe your business activities..."></textarea>
+                        <div class="form-text">
+                            <span id="char-count">0</span>/500 characters
+                        </div>
+                        <div class="invalid-feedback"></div>
                     </div>
                 </div>
             </div>
             
             <div class="form-section">
-                <div class="section-title">Documents Upload</div>
+                <div class="section-title">
+                    <i class="fas fa-file-upload me-2"></i>Documents Upload
+                </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label class="required" for="pan-upload">PAN Card of Business</label>
-                        <div class="upload-btn" id="pan-upload">
-                            Choose File
-                            <input type="file" style="display: none" required>
+                        <div class="upload-container">
+                            <div class="upload-btn btn btn-outline-primary" id="pan-upload">
+                                <i class="fas fa-cloud-upload-alt me-2"></i>Choose File
+                                <input type="file" style="display: none" accept=".jpg,.jpeg,.png,.pdf" required>
+                            </div>
+                            <div class="upload-preview" style="display: none;">
+                                <i class="fas fa-file-alt me-2"></i>
+                                <span class="file-name"></span>
+                                <button type="button" class="btn btn-sm btn-danger ms-2 remove-file">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
                         </div>
                         <div class="help-text">Supported formats: JPG, PNG, PDF (Max: 2MB)</div>
+                        <div class="invalid-feedback"></div>
                     </div>
                     
                     <div class="form-group">
                         <label class="required" for="address-proof">Address Proof</label>
-                        <div class="upload-btn" id="address-proof">
-                            Choose File
-                            <input type="file" style="display: none" required>
+                        <div class="upload-container">
+                            <div class="upload-btn btn btn-outline-primary" id="address-proof">
+                                <i class="fas fa-cloud-upload-alt me-2"></i>Choose File
+                                <input type="file" style="display: none" accept=".jpg,.jpeg,.png,.pdf" required>
+                            </div>
+                            <div class="upload-preview" style="display: none;">
+                                <i class="fas fa-file-alt me-2"></i>
+                                <span class="file-name"></span>
+                                <button type="button" class="btn btn-sm btn-danger ms-2 remove-file">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
                         </div>
                         <div class="help-text">Supported formats: JPG, PNG, PDF (Max: 2MB)</div>
+                        <div class="invalid-feedback"></div>
                     </div>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label class="required" for="id-proof">ID Proof of Proprietor/Director</label>
-                        <div class="upload-btn" id="id-proof">
-                            Choose File
-                            <input type="file" style="display: none" required>
+                        <div class="upload-container">
+                            <div class="upload-btn btn btn-outline-primary" id="id-proof">
+                                <i class="fas fa-cloud-upload-alt me-2"></i>Choose File
+                                <input type="file" style="display: none" accept=".jpg,.jpeg,.png,.pdf" required>
+                            </div>
+                            <div class="upload-preview" style="display: none;">
+                                <i class="fas fa-file-alt me-2"></i>
+                                <span class="file-name"></span>
+                                <button type="button" class="btn btn-sm btn-danger ms-2 remove-file">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
                         </div>
                         <div class="help-text">Supported formats: JPG, PNG, PDF (Max: 2MB)</div>
+                        <div class="invalid-feedback"></div>
                     </div>
                     
                     <div class="form-group">
                         <label for="business-proof">Business Registration Document</label>
-                        <div class="upload-btn" id="business-proof">
-                            Choose File
-                            <input type="file" style="display: none">
+                        <div class="upload-container">
+                            <div class="upload-btn btn btn-outline-primary" id="business-proof">
+                                <i class="fas fa-cloud-upload-alt me-2"></i>Choose File
+                                <input type="file" style="display: none" accept=".jpg,.jpeg,.png,.pdf">
+                            </div>
+                            <div class="upload-preview" style="display: none;">
+                                <i class="fas fa-file-alt me-2"></i>
+                                <span class="file-name"></span>
+                                <button type="button" class="btn btn-sm btn-danger ms-2 remove-file">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
                         </div>
                         <div class="help-text">Supported formats: JPG, PNG, PDF (Max: 2MB)</div>
                     </div>
@@ -316,64 +961,56 @@
             
             <div class="form-row">
                 <div class="form-group" style="flex: 100%">
-                    <input type="checkbox" id="declaration" name="declaration" required>
-                    <label for="declaration">I hereby declare that the information provided above is true to the best of my knowledge and belief. I understand that providing false information may result in rejection of application and legal consequences.</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="declaration" name="declaration" required>
+                        <label class="form-check-label" for="declaration">
+                            I hereby declare that the information provided above is true to the best of my knowledge and belief. I understand that providing false information may result in rejection of application and legal consequences.
+                        </label>
+                        <div class="invalid-feedback"></div>
+                    </div>
                 </div>
             </div>
             
-            <div class="button-group">
-                <button type="button" class="btn btn-secondary">Save as Draft</button>
-                <button type="submit" class="btn btn-primary">Submit Application</button>
+            <div class="button-group d-flex gap-3 justify-content-center">
+                <button type="button" class="btn btn-secondary btn-lg" id="save-draft">
+                    <i class="fas fa-save me-2"></i>Save as Draft
+                </button>
+                <button type="submit" class="btn btn-primary btn-lg" id="submit-btn">
+                    <i class="fas fa-paper-plane me-2"></i>Submit Application
+                </button>
             </div>
         </form>
+    </div>
+    
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title">
+                        <i class="fas fa-check-circle me-2"></i>Application Submitted Successfully!
+                    </h5>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="mb-3">
+                        <i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i>
+                    </div>
+                    <h5>Your GST Registration application has been submitted!</h5>
+                    <p class="mb-3">Your application reference number is:</p>
+                    <div class="alert alert-info">
+                        <strong id="reference-number"></strong>
+                    </div>
+                    <p class="text-muted">You will receive an email confirmation shortly. Processing typically takes 7 working days.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
     
     <footer>
         <p>&copy; 2025 Government of India. All rights reserved.</p>
     </footer>
 
-    <script>
-        // Handle file upload button styling
-        document.querySelectorAll('.upload-btn').forEach(btn => {
-            const fileInput = btn.querySelector('input[type="file"]');
-            
-            btn.addEventListener('click', () => {
-                fileInput.click();
-            });
-            
-            fileInput.addEventListener('change', () => {
-                if (fileInput.files.length > 0) {
-                    btn.textContent = fileInput.files[0].name;
-                } else {
-                    btn.textContent = 'Choose File';
-                }
-            });
-        });
-        
-        // Form validation and submission
-        document.getElementById('gst-registration-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Basic validation
-            const requiredFields = document.querySelectorAll('[required]');
-            let isValid = true;
-            
-            requiredFields.forEach(field => {
-                if (!field.value) {
-                    isValid = false;
-                    field.style.borderColor = '#dc3545';
-                } else {
-                    field.style.borderColor = '#ced4da';
-                }
-            });
-            
-            if (isValid) {
-                alert('Your GST Registration application has been submitted successfully! Your application reference number is: GST-' + Math.floor(100000 + Math.random() * 900000));
-                // In a real application, you would send the form data to the server here
-            } else {
-                alert('Please fill in all required fields marked with *');
-            }
-        });
-    </script>
-</body>
-</html>
+   
