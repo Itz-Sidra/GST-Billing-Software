@@ -15,7 +15,270 @@ document.addEventListener("DOMContentLoaded", function () {
   
   // Initialize all validation listeners
   initializeValidation();
+
+  // jQuery Features - Enhanced field interactions
+  $(document).ready(function() {
+    // Feature 1: Smooth field highlighting with enhanced animations
+    $('input, select, textarea').focus(function() {
+      $(this).addClass('focused').animate({
+        boxShadow: '0 0 15px rgba(59, 130, 246, 0.6)',
+        borderColor: '#3b82f6'
+      }, 300).parent().addClass('field-focused');
+    }).blur(function() {
+      $(this).removeClass('focused').parent().removeClass('field-focused');
+      if (!$(this).hasClass('error')) {
+        $(this).animate({
+          boxShadow: 'none',
+          borderColor: '#d1d5db'
+        }, 300);
+      }
+    });
+
+    // Feature 2: jQuery-based form field counter and progress indicator
+    initializeFieldProgress();
+
+    // Feature 3: Enhanced tooltips with jQuery
+    initializeTooltips();
+
+    // Feature 4: Auto-save functionality with jQuery
+    initializeAutoSave();
+
+    // Feature 5: Dynamic field dependencies with jQuery
+    initializeFieldDependencies();
+  });
 });
+
+// jQuery Feature 2: Form Progress Indicator
+function initializeFieldProgress() {
+  // Create progress bar if it doesn't exist
+  if ($('#form-progress').length === 0) {
+    $('form').prepend(`
+      <div id="form-progress" style="
+        background: #f3f4f6; 
+        height: 6px; 
+        border-radius: 3px; 
+        margin-bottom: 20px; 
+        overflow: hidden;
+      ">
+        <div id="progress-bar" style="
+          height: 100%; 
+          background: linear-gradient(90deg, #3b82f6, #10b981); 
+          width: 0%; 
+          transition: width 0.5s ease;
+        "></div>
+      </div>
+      <div id="field-counter" style="
+        text-align: center; 
+        color: #6b7280; 
+        margin-bottom: 15px; 
+        font-size: 14px;
+      ">
+        Form Completion: <span id="completion-text">0%</span>
+      </div>
+    `);
+  }
+
+  // Track form completion with jQuery
+  function updateProgress() {
+    const totalFields = $('input[required], select[required], textarea[required]').length;
+    const filledFields = $('input[required], select[required], textarea[required]').filter(function() {
+      return $(this).val() !== '';
+    }).length;
+    
+    const percentage = totalFields > 0 ? Math.round((filledFields / totalFields) * 100) : 0;
+    
+    $('#progress-bar').animate({ width: percentage + '%' }, 500);
+    $('#completion-text').text(percentage + '%');
+    
+    // Change color based on completion
+    if (percentage >= 100) {
+      $('#progress-bar').css('background', 'linear-gradient(90deg, #10b981, #059669)');
+    } else if (percentage >= 50) {
+      $('#progress-bar').css('background', 'linear-gradient(90deg, #f59e0b, #10b981)');
+    } else {
+      $('#progress-bar').css('background', 'linear-gradient(90deg, #ef4444, #f59e0b)');
+    }
+  }
+
+  // Update progress on field changes
+  $('input, select, textarea').on('input change', updateProgress);
+  updateProgress(); // Initial update
+}
+
+// jQuery Feature 3: Enhanced Tooltips
+function initializeTooltips() {
+  // Add tooltips to form fields
+  const tooltips = {
+    'invoice-number': 'Format: INV-YYYY#### (e.g., INV-20241234)',
+    'seller-gstin': '15-character GSTIN format required',
+    'buyer-gstin': '15-character GSTIN format required',
+    'seller-name': 'Business name cannot contain numbers',
+    'buyer-name': 'Business name cannot contain numbers'
+  };
+
+  $.each(tooltips, function(fieldId, tooltipText) {
+    const $field = $('#' + fieldId);
+    if ($field.length) {
+      $field.attr('title', tooltipText)
+            .hover(
+              function() {
+                const $tooltip = $('<div class="custom-tooltip">')
+                  .text(tooltipText)
+                  .css({
+                    position: 'absolute',
+                    background: '#1f2937',
+                    color: 'white',
+                    padding: '8px 12px',
+                    borderRadius: '6px',
+                    fontSize: '12px',
+                    zIndex: 10000,
+                    whiteSpace: 'nowrap',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                  });
+                
+                $('body').append($tooltip);
+                
+                const fieldOffset = $(this).offset();
+                $tooltip.css({
+                  top: fieldOffset.top - $tooltip.outerHeight() - 10,
+                  left: fieldOffset.left
+                }).fadeIn(200);
+              },
+              function() {
+                $('.custom-tooltip').fadeOut(200, function() {
+                  $(this).remove();
+                });
+              }
+            );
+    }
+  });
+}
+
+// jQuery Feature 4: Auto-save functionality
+function initializeAutoSave() {
+  let autoSaveTimer;
+  const autoSaveData = {};
+
+  function saveFormData() {
+    $('input, select, textarea').each(function() {
+      const $field = $(this);
+      const fieldName = $field.attr('name') || $field.attr('id');
+      if (fieldName) {
+        autoSaveData[fieldName] = $field.val();
+      }
+    });
+    
+    // Show auto-save indicator
+    showAutoSaveIndicator();
+  }
+
+  function showAutoSaveIndicator() {
+    // Remove existing indicator
+    $('.auto-save-indicator').remove();
+    
+    // Add new indicator
+    const $indicator = $('<div class="auto-save-indicator">')
+      .text('✓ Auto-saved')
+      .css({
+        position: 'fixed',
+        top: '10px',
+        right: '10px',
+        background: '#10b981',
+        color: 'white',
+        padding: '6px 12px',
+        borderRadius: '20px',
+        fontSize: '12px',
+        zIndex: 10000
+      })
+      .hide()
+      .fadeIn(300);
+    
+    $('body').append($indicator);
+    
+    setTimeout(() => {
+      $indicator.fadeOut(300, function() {
+        $(this).remove();
+      });
+    }, 2000);
+  }
+
+  // Auto-save on field changes
+  $('input, select, textarea').on('input change', function() {
+    clearTimeout(autoSaveTimer);
+    autoSaveTimer = setTimeout(saveFormData, 2000); // Save after 2 seconds of inactivity
+  });
+}
+
+// jQuery Feature 5: Dynamic Field Dependencies
+function initializeFieldDependencies() {
+  // State-based PIN code suggestions (mock data)
+  const statePinCodes = {
+    '01': ['110001', '110002', '110003'], // Delhi
+    '02': ['400001', '400002', '400003'], // Maharashtra
+    '03': ['700001', '700002', '700003']  // West Bengal
+  };
+
+  // Update PIN suggestions based on state selection
+  $('#seller-state, #buyer-state').change(function() {
+    const stateCode = $(this).val();
+    const targetType = $(this).attr('id').includes('seller') ? 'seller' : 'buyer';
+    const $pinField = $(`input[name="${targetType}-pin"], input[id="${targetType}-pin"]`);
+    
+    if (stateCode && statePinCodes[stateCode] && $pinField.length) {
+      // Create suggestion dropdown
+      $('.pin-suggestions').remove();
+      
+      const $suggestions = $('<div class="pin-suggestions">')
+        .css({
+          position: 'absolute',
+          background: 'white',
+          border: '1px solid #d1d5db',
+          borderRadius: '6px',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+          zIndex: 1000,
+          maxHeight: '120px',
+          overflowY: 'auto'
+        });
+      
+      statePinCodes[stateCode].forEach(pin => {
+        const $option = $('<div>')
+          .text(pin)
+          .css({
+            padding: '8px 12px',
+            cursor: 'pointer',
+            borderBottom: '1px solid #f3f4f6'
+          })
+          .hover(
+            function() { $(this).css('background', '#f3f4f6'); },
+            function() { $(this).css('background', 'white'); }
+          )
+          .click(function() {
+            $pinField.val(pin).trigger('input');
+            $suggestions.fadeOut(200, function() { $(this).remove(); });
+          });
+        
+        $suggestions.append($option);
+      });
+      
+      // Position suggestions below the PIN field
+      const pinOffset = $pinField.offset();
+      $suggestions.css({
+        top: pinOffset.top + $pinField.outerHeight() + 5,
+        left: pinOffset.left,
+        width: $pinField.outerWidth()
+      });
+      
+      $('body').append($suggestions.hide().fadeIn(200));
+      
+      // Hide suggestions when clicking elsewhere
+      $(document).one('click', function(e) {
+        if (!$(e.target).closest('.pin-suggestions, input').length) {
+          $suggestions.fadeOut(200, function() { $(this).remove(); });
+        }
+      });
+    }
+  });
+}
 
 // Generate unique invoice number with format validation
 function generateInvoiceNumber() {
