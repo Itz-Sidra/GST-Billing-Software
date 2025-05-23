@@ -6,6 +6,11 @@
     <title>Downloads - GST Portal</title>
     <link rel="stylesheet" href="../css/downloads.css">
     <script defer src="../js/downloads.js"></script>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -33,22 +38,103 @@
         </ul>
     </nav>
     
-    <section class="downloads-section">
-        <h2>GST Related Downloads</h2>
+    <div class="container">
+        <section class="downloads-section">
+            <h2><i class="fas fa-download me-2"></i>GST Related Downloads</h2>
 
-        <input type="text" id="searchInput" placeholder="Search for a file..." onkeyup="filterDownloads()">
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" class="form-control form-control-lg" id="searchInput" placeholder="Search for documents, forms, or guides...">
+            </div>
 
-        <ul id="downloadList">
-            <li><a href="../files/gst_act_2017.pdf" download>GST Act 2017 (PDF)</a></li>
-            <li><a href="../files/gst_filing_guide.pdf" download>GST Filing Guide (PDF)</a></li>
-            <li><a href="../files/gst_compliance_checklist.pdf" download>GST Compliance Checklist (PDF)</a></li>
-            <li><a href="../files/e_invoice_guide.pdf" download>e-Invoice Guide (PDF)</a></li>
-            <li><a href="../files/gst_return_forms.pdf" download>GST Return Forms (PDF)</a></li>
-        </ul>
-    </section>
+            <div id="downloadList">
+                <div class="download-item" data-filename="GST Act 2017">
+                    <a href="../files/gst_act_2017.pdf" class="download-link" download>
+                        <i class="fas fa-file-pdf file-icon"></i>
+                        <div class="file-info">
+                            <h5>GST Act 2017</h5>
+                            <p>Complete GST Act with all amendments - PDF Format</p>
+                        </div>
+                        <button class="btn download-btn">
+                            <i class="fas fa-download me-1"></i>Download
+                        </button>
+                    </a>
+                </div>
+
+                <div class="download-item" data-filename="GST Filing Guide">
+                    <a href="../files/gst_filing_guide.pdf" class="download-link" download>
+                        <i class="fas fa-file-pdf file-icon"></i>
+                        <div class="file-info">
+                            <h5>GST Filing Guide</h5>
+                            <p>Step-by-step guide for GST return filing - PDF Format</p>
+                        </div>
+                        <button class="btn download-btn">
+                            <i class="fas fa-download me-1"></i>Download
+                        </button>
+                    </a>
+                </div>
+
+                <div class="download-item" data-filename="GST Compliance Checklist">
+                    <a href="../files/gst_compliance_checklist.pdf" class="download-link" download>
+                        <i class="fas fa-file-pdf file-icon"></i>
+                        <div class="file-info">
+                            <h5>GST Compliance Checklist</h5>
+                            <p>Monthly and annual compliance checklist - PDF Format</p>
+                        </div>
+                        <button class="btn download-btn">
+                            <i class="fas fa-download me-1"></i>Download
+                        </button>
+                    </a>
+                </div>
+
+                <div class="download-item" data-filename="e-Invoice Guide">
+                    <a href="../files/e_invoice_guide.pdf" class="download-link" download>
+                        <i class="fas fa-file-pdf file-icon"></i>
+                        <div class="file-info">
+                            <h5>e-Invoice Guide</h5>
+                            <p>Complete guide for e-Invoice implementation - PDF Format</p>
+                        </div>
+                        <button class="btn download-btn">
+                            <i class="fas fa-download me-1"></i>Download
+                        </button>
+                    </a>
+                </div>
+
+                <div class="download-item" data-filename="GST Return Forms">
+                    <a href="../files/gst_return_forms.pdf" class="download-link" download>
+                        <i class="fas fa-file-pdf file-icon"></i>
+                        <div class="file-info">
+                            <h5>GST Return Forms</h5>
+                            <p>All GST return forms (GSTR-1, GSTR-3B, etc.) - PDF Format</p>
+                        </div>
+                        <button class="btn download-btn">
+                            <i class="fas fa-download me-1"></i>Download
+                        </button>
+                    </a>
+                </div>
+            </div>
+
+            <div id="noResults" class="no-results" style="display: none;">
+                <i class="fas fa-search"></i>
+                <h4>No documents found</h4>
+                <p>Try adjusting your search terms</p>
+            </div>
+        </section>
+    </div>
 
     <footer>
-        <p>&copy; 2025 Government of India. All rights reserved.</p>
+        <div class="container">
+            <p>&copy; 2025 Government of India. All rights reserved.</p>
+        </div>
     </footer>
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        
+    </script>
 </body>
 </html>
