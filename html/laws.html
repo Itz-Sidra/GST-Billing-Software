@@ -6,11 +6,12 @@
     <title>GST Law - Government of India</title>
     <link rel="stylesheet" href="../css/laws.css">
     <script defer src="../js/laws.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <header>
         <div class="logo">
-            <img src="../assests/government of india.png" alt="Government Logo">
+            <img src="../assests/government of india.png" alt="Government of India Emblem">
         </div>
         <div class="heading">
             <h1>Goods and Services Tax</h1>
@@ -33,50 +34,98 @@
         </ul>
     </nav>
     
-    <section class="law-content">
-        <h2>Understanding GST Law</h2>
-        <p>Goods and Services Tax (GST) is a comprehensive indirect tax levied on the supply of goods and services across India. It replaced multiple indirect taxes and brought uniformity to the tax system.</p>
-        
-        <h3>Key Features of GST</h3>
-        <ul>
-            <li>Single tax system covering CGST, SGST, and IGST.</li>
-            <li>Elimination of cascading tax effects.</li>
-            <li>Improved compliance through digital records.</li>
-            <li>Input tax credit mechanism.</li>
-        </ul>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <section class="law-content">
+                    <h2>Understanding GST Law</h2>
+                    <p>Goods and Services Tax (GST) is a comprehensive indirect tax levied on the supply of goods and services across India. It replaced multiple indirect taxes and brought uniformity to the tax system.</p>
+                    
+                    <!-- Bootstrap enhanced section -->
+                    <div class="row mt-4">
+                        <div class="col-lg-6 col-md-12 mb-3">
+                            <div class="card bootstrap-card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title text-primary">Key Benefits</h5>
+                                    <ul class="list-unstyled">
+                                        <li><i class="text-success">✓</i> Single tax system</li>
+                                        <li><i class="text-success">✓</i> Eliminates cascading effects</li>
+                                        <li><i class="text-success">✓</i> Digital compliance</li>
+                                        <li><i class="text-success">✓</i> Input tax credits</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 mb-3">
+                            <div class="card bootstrap-card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title text-primary">Tax Components</h5>
+                                    <ul class="list-unstyled">
+                                        <li><span class="badge bg-primary me-2">CGST</span>Central GST</li>
+                                        <li><span class="badge bg-success me-2">SGST</span>State GST</li>
+                                        <li><span class="badge bg-warning me-2">IGST</span>Integrated GST</li>
+                                        <li><span class="badge bg-info me-2">UGST</span>UT GST</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-        <h3>GST Acts and Rules</h3>
-        <div class="law-list">
-            <div class="law-item">
-                <button class="law-title">GST Act 2017</button>
-                <p class="law-detail">The Central Goods and Services Tax (CGST) Act, 2017 governs the levy of GST in India.</p>
-            </div>
-            <div class="law-item">
-                <button class="law-title">IGST Act 2017</button>
-                <p class="law-detail">The Integrated Goods and Services Tax (IGST) Act regulates inter-state transactions.</p>
-            </div>
-            <div class="law-item">
-                <button class="law-title">SGST Act 2017</button>
-                <p class="law-detail">Each state has its own SGST Act to manage intra-state transactions.</p>
-            </div>
-            <div class="law-item">
-                <button class="law-title">GST Compensation Act</button>
-                <p class="law-detail">Ensures states receive compensation for revenue loss due to GST implementation.</p>
+                    <h3>GST Acts and Rules</h3>
+                    <div class="law-list">
+                        <div class="law-item">
+                            <button class="law-title">GST Act 2017</button>
+                            <div class="law-detail">
+                                <div class="alert alert-info" role="alert">
+                                    <strong>Central GST Act 2017:</strong> The Central Goods and Services Tax (CGST) Act, 2017 governs the levy of GST in India. This comprehensive legislation provides the framework for tax administration, registration, returns, and compliance procedures.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="law-item">
+                            <button class="law-title">IGST Act 2017</button>
+                            <div class="law-detail">
+                                <div class="alert alert-success" role="alert">
+                                    <strong>Integrated GST Act 2017:</strong> The Integrated Goods and Services Tax (IGST) Act regulates inter-state transactions, imports, and exports. It ensures seamless flow of input tax credits across state boundaries.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="law-item">
+                            <button class="law-title">SGST Act 2017</button>
+                            <div class="law-detail">
+                                <div class="alert alert-warning" role="alert">
+                                    <strong>State GST Act 2017:</strong> Each state has its own SGST Act to manage intra-state transactions. These acts are largely uniform across states to maintain consistency in GST implementation.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="law-item">
+                            <button class="law-title">GST Compensation Act</button>
+                            <div class="law-detail">
+                                <div class="alert alert-secondary" role="alert">
+                                    <strong>GST Compensation Act 2017:</strong> Ensures states receive compensation for revenue loss due to GST implementation. This act provides a safety net for states during the transition period.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bootstrap Progress Bar for GST Implementation -->
+                    <div class="mt-4">
+                        <h4>GST Implementation Progress</h4>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100">95% Complete</div>
+                        </div>
+                        <p class="text-muted">GST has been successfully implemented across India with ongoing refinements and improvements.</p>
+                    </div>
+                </section>
             </div>
         </div>
-    </section>
+    </div>
 
     <footer>
         <p>&copy; 2025 Government of India. All rights reserved.</p>
     </footer>
 
-    <script>
-        document.querySelectorAll('.law-title').forEach(button => {
-            button.addEventListener('click', () => {
-                const detail = button.nextElementSibling;
-                detail.style.display = (detail.style.display === "block") ? "none" : "block";
-            });
-        });
-    </script>
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
