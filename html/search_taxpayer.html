@@ -4,19 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Taxpayer - Government of India</title>
-    <link rel="stylesheet" href="../css/search_taxpayer.css">
-    <script defer src="../js/search_taxpayer.js"></script>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/search_taxpayer.css" />
+  <script defer src="../js/search_taxpayer.js"></script>
 </head>
 <body>
     <header>
         <div class="logo">
-            <img src="../assests/government of india.png" alt="Government Logo">
+            <img src="../assests/government of india.png" alt="Government of India Emblem">
         </div>
         <div class="heading">
             <h1>Goods and Services Tax</h1>
             <p>Government of India, States and Union Territories</p>
         </div>
     </header>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- Bootstrap JS Bundle (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <nav aria-label="Main navigation">
         <ul>
@@ -33,23 +45,90 @@
         </ul>
     </nav>
 
-    <section class="search-section">
-        <h2>Enter GSTIN to Search</h2>
-        <input type="text" id="gstin" placeholder="Enter GSTIN (15-digit)">
-        <button id="search-btn">Search</button>
-        <p id="error-msg" class="error"></p>
-        
-        <div id="result" class="result-container">
-            <h3>Taxpayer Details</h3>
-            <p><strong>Name:</strong> <span id="taxpayer-name"></span></p>
-            <p><strong>GSTIN:</strong> <span id="taxpayer-gstin"></span></p>
-            <p><strong>State:</strong> <span id="taxpayer-state"></span></p>
-            <p><strong>Status:</strong> <span id="taxpayer-status"></span></p>
-        </div>
-    </section>
+    <div class="container">
+        <section class="search-section">
+            <h2><i class="fas fa-search me-3"></i>Search Taxpayer Information</h2>
+            
+            <div class="search-form">
+                <div class="gstin-input-group">
+                    <input type="text" class="form-control" id="gstin" placeholder="Enter 15-digit GSTIN (e.g., 29ABCDE1234F1Z5)" maxlength="15">
+                    <i class="fas fa-building input-icon"></i>
+                </div>
+                
+                <div class="d-grid gap-2">
+                    <button class="btn search-btn" id="search-btn" type="button">
+                        <i class="fas fa-search me-2"></i>Search Taxpayer
+                    </button>
+                </div>
+                
+                <div class="mt-3 text-center">
+                    <small class="text-muted">
+                        <i class="fas fa-info-circle me-1"></i>
+                        Enter a valid 15-digit GSTIN to search for taxpayer details
+                    </small>
+                </div>
+            </div>
+
+            <div id="error-alert" class="alert alert-danger error-alert" style="display: none;">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <span id="error-msg"></span>
+            </div>
+
+            <div id="result" class="result-container" style="display: none;">
+                <h3><i class="fas fa-user-check me-2"></i>Taxpayer Details</h3>
+                <div class="taxpayer-info">
+                    <div class="info-card">
+                        <div class="info-label">Business Name</div>
+                        <div class="info-value" id="taxpayer-name">-</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">GSTIN</div>
+                        <div class="info-value" id="taxpayer-gstin">-</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">State</div>
+                        <div class="info-value" id="taxpayer-state">-</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Registration Status</div>
+                        <div class="info-value" id="taxpayer-status">-</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Business Type</div>
+                        <div class="info-value" id="taxpayer-type">-</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Registration Date</div>
+                        <div class="info-value" id="taxpayer-date">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recent-searches" id="recent-searches" style="display: none;">
+                <h4><i class="fas fa-history me-2"></i>Recent Searches</h4>
+                <div id="recent-list"></div>
+            </div>
+
+            <div class="loading-overlay" id="loading-overlay" style="display: none;">
+                <div class="text-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <div class="mt-2">Searching taxpayer information...</div>
+                </div>
+            </div>
+        </section>
+    </div>
 
     <footer>
-        <p>&copy; 2025 Government of India. All rights reserved.</p>
+        <div class="container">
+            <p>&copy; 2025 Government of India. All rights reserved.</p>
+        </div>
     </footer>
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
